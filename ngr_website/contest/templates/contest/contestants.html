@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="team-grid body-container">
+    <div class="container">
+        <div class="text-center intro">
+            <h1 class="display-4 text-center mb-5" style="font-family: Allura, serif;">Contestants</h1>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 text-center search-area">
+                <div></div><i class="fas fa-search search-icon"></i><input type="search" class="custom-search-input mb-5" placeholder="Search contestants">
+            </div>
+        </div>
+        {% if object_list  %}
+        <div class="row people">
+            {% for object in object_list %}
+            {% if object.payment_verified %}
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image: url({{object.photograph.url}});">
+                    <div class="cover">
+                        <h3 class="name">{{object.last_name}} {{object.other_names}}</h3>
+                        <p class="title">{{object.profession}}</p>
+                        <div class="social">
+                           {% if object.facebook %} <a href="{{object.facebook}}"><i class="fa fa-facebook-official"></i></a>{% endif %}
+                           {% if object.instagram %} <a href="{{object.instagram}}"><i class="fa fa-instagram"></i></a>{% endif %}
+                        </div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' object.slug %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>{% if object.votes %}{{object.votes.count|intcomma}}{% else %}0{% endif %} votes</span></div>
+            </div>
+            {% else %}
+            <h3 class="text-muted display-6 mt-5">Contestants unavailable...</h3>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="block-27">
+                <ul>
+                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                    <li class="active"><a href="#"><span>1</span></a></li>
+                    <li><a href="#"><span>2</span></a></li>
+                    <li><a href="#"><span>3</span></a></li>
+                    <li><a href="#"><span>4</span></a></li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                </ul>
+            </div>
+        </div>    
+        {% else %}
+            <h3 class="text-muted display-6 mt-5">Contestants unavailable...</h3>
+        <!-- <div class="row people">
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Emma Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#" target=”_blank”><i class="fa fa-facebook-official"></i></a><a href="#" target=”_blank”><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#" target=”_blank”><i class="fa fa-facebook-official"></i></a><a href="#" target=”_blank”><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' %}">Profile</a><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+            <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
+                <div class="box" style="background-image:url({% static 'img/1.jpg' %})">
+                    <div class="cover">
+                        <h3 class="name">Ben Johnson</h3>
+                        <p class="title">Musician</p>
+                        <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        <div class="d-flex justify-content-around mt-4"><button class="btn btn-warning" type="button">Profile</button><button class="btn btn-success" type="button">Vote<i class="fa fa-star ms-1"></i></button></div>
+                    </div>
+                </div>
+                <div class="ribbon"><span>3,000 votes</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="block-27">
+            <ul>
+                <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                <li class="active"><a href="#"><span>1</span></a></li>
+                <li><a href="#"><span>2</span></a></li>
+                <li><a href="#"><span>3</span></a></li>
+                <li><a href="#"><span>4</span></a></li>
+                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+        </div>
+    </div> -->
+    {% endif %}
+</section>
+{% endblock %}

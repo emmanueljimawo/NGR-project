@@ -1,0 +1,15 @@
+{% load activelink %}
+
+<nav class="navbar navbar-dark navbar-expand-md fixed-top" id="navbar">
+    <div class="container"><a class="navbar-brand" href="{% url 'core:home' %}">Naija Grace Race (NGR)</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link {% ifactive 'core:home' %}active{% endifactive %}" href="{% url 'core:home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link {% ifactive 'contest:contestants' %}active{% endifactive %}" href="{% url 'contest:contestants' %}">Contestants</a></li>
+                <li class="nav-item"><a class="nav-link {% ifactive 'contest:registration' %}active{% endifactive %}" href="{% url 'contest:registration' %}">Registration</a></li>
+                <li class="nav-item"><a class="nav-link {% ifactive 'core:about_us' %}active{% endifactive %}" href="{% url 'core:about_us' %}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link {% ifactive 'core:contact_us' %}active{% endifactive %}" href="{% url 'core:contact_us' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="body-container" style="background-color: rgb(33, 47, 88);">
+    <div class="container">
+        <div>
+            <h1 class="display-2 text-center" style="font-family: Allura, serif;color: silver;z-index: 3;position: relative;">Become a Star</h1>
+            <div class="row top">
+                <div class="col">
+                    <div class="row text-center big-countdown" data-countdown="{{ contest.start_date.month }}/{{ contest.start_date.day }}/{{ contest.start_date.year }} {{ contest.start_date.hour }}:{{ contest.start_date.minute }}:{{ contest.start_date.second }}">
+                        <div class="col-6 col-sm-3" data-aos="fade-up"><span class="number-days">00</span><span class="txt-countdown">days </span></div>
+                        <div class="col-6 col-sm-3" data-aos="fade-up" data-aos-delay="50"><span class="number-hours">00</span><span class="txt-countdown">hours </span></div>
+                        <div class="col-6 col-sm-3" data-aos="fade-up" data-aos-delay="100"><span class="number-minutes">00</span><span class="txt-countdown">minutes </span></div>
+                        <div class="col-6 col-sm-3" data-aos="fade-up" data-aos-delay="150"><span class="number-seconds">00</span><span class="txt-countdown">seconds </span></div>
+                    </div>
+                    <div class="text-center"><a class="btn btn-primary btn-lg ripple button" role="button" href="{% url 'contest:registration' %}" style="border-radius: 0px;">REGISTER NOW&nbsp;<i class="fa fa-angle-right"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="stars"></div>
+<div class="twinkling-blue"></div>
+
+{% endblock %}
+

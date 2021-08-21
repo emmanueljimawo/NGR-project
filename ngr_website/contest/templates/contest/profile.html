@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+{% if object.payment_verified %}
+<section>
+    <div class="container body-container">
+        <h1 class="my-4">{{ object.last_name }} {{ object.other_names }}<br></h1>
+        <div class="row">
+            <!-- <div class="col-md-8" data-aos="fade-right"><img class="img-fluid" src="http://placehold.it/750x500" alt="Alt Text"></div> -->
+            <div class="col-md-8" data-aos="fade-right"><img class="img-fluid" src="{{ object.photograph.url }}" alt="Alt Text"></div>
+            <div class="col-md-4 details" data-aos="fade-up">
+                <h3 class="my-3">Details</h3>
+                <ul class="list-unstyled">
+                    <li><span class="text-muted">Name:</span>&nbsp;{{ object.last_name }} {{ object.other_names }}</li>
+                    <li><span class="text-muted">Sex:</span>&nbsp;{{ object.sex }}</li>
+                    <li><span class="text-muted">Age:</span>&nbsp;{{ object.age }}</li>
+                    <li><span class="text-muted">State:</span>&nbsp;{{ object.state }}</li>
+                    <li><span class="text-muted">Profession:</span>&nbsp;{{ object.profession }}</li>
+                </ul>
+                <div class="social-icons"> {% if object.facebook %}<a href="#"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="#"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
+                <h4 class="text-center text-primary mt-4">{% if object.votes %}{{object.votes.count|intcomma}}{% else %}0{% endif %} votes</h4>
+                <div class="mt-4"><button class="btn btn-success btn-lg profile-vote shadow" type="button" style="width: 100%;">vote</button></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-4" data-aos="fade-up">
+                <h3 class="my-3">About</h3>
+                <p>{{ object.about|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% else %}
+
+<section>
+    <div class="container body-container" >
+        <div class="row justify-content-center">
+            <div class="col-md-8 shadow" id="registration-form">
+                <h1 class="display-3 text-center" style="font-family: Allura, serif;">Payment</h1>
+                <p class="text-muted"><em>Ref No: {{ object.ref_number }}</em></p>
+                <p class="text-danger text-muted"><em>Status:</em>{% if object.payment_verified %}<span class="text-success ms-2"><strong><em>Paid</em></strong></span>{% else %}<span class="text-danger ms-2"><strong><em>Unpaid</em></strong></span>{% endif %}</p>
+                <form method="POST" enctype="multipart/form-data"  class="mt-5 needs-validation" >
+                    {% csrf_token %}
+                    {{ form.recaptcha }}
+                    {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-3">
+                            <div class="form-floating">
+                                {% render_field form.last_name class="form-control" %}
+                                <label class="form-label" for="last_name">{{ form.last_name.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                {% render_field form.other_names class="form-control" %}
+                                <label class="form-label" for="other_names">{{ form.other_names.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-3">
+                            <div class="form-floating">
+                                {% render_field form.age class="form-control" %}
+                                <label class="form-label" for="age">{{ form.age.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <div class="form-floating">
+                                {% render_field form.sex class="form-control" %}
+                                <label class="form-label" for="sex">{{ form.sex.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-3">
+                            {% if form.is_bound %}
+                            {% if form.facebook.errors %}
+                            <div class="form-floating">
+                                {% render_field form.facebook class="form-control is-invalid" %}
+                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
+                            </div> 
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.facebook class="form-control is-valid" %}
+                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.facebook class="form-control" %}
+                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
+                            </div>
+                            {% endif %}
+                            {% if form.facebook.help_text %}
+                            <small class="form-text text-muted">{{ form.facebook.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            {% if form.is_bound %}
+                            {% if form.instagram.errors %}
+                            <div class="form-floating">
+                                {% render_field form.instagram class="form-control is-invalid" %}
+                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
+                            </div> 
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.instagram class="form-control is-valid" %}
+                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.instagram class="form-control" %}
+                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
+                            </div>
+                            {% endif %}
+                            {% if form.instagram.help_text %}
+                            <small class="form-text text-muted">{{ form.instagram.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            {% if form.is_bound %}
+                            {% if form.phone_number.errors %}
+                            <div class="form-floating">
+                                {% render_field form.phone_number class="form-control is-invalid" %}
+                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
+                            </div> 
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.phone_number class="form-control is-valid" %}
+                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.phone_number class="form-control" %}
+                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% if form.phone_number.help_text %}
+                            <small class="form-text text-muted">{{ form.phone_number.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="form-floating">
+                                {% render_field form.email class="form-control" %}
+                                <label class="form-label" for="email">{{ form.email.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            {% if form.is_bound %}
+                            {% if form.state.errors %}
+                            <div class="form-floating">
+                                {% render_field form.state class="form-control is-invalid" %}
+                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
+                            </div> 
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.state class="form-control is-valid" %}
+                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.state class="form-control" %}
+                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% if form.state.help_text %}
+                            <small class="form-text text-muted">{{ form.state.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label text-muted" for="photograph" style="font-size: 13px;">{{ form.photograph.label }}<span class="asteriskField">*</span></label>                            {% if form.is_bound %}
+                            {% if form.photograph.errors %}
+                                {% render_field form.photograph class="form-control is-invalid" %}
+                            {% else %}
+                                {% render_field form.photograph class="form-control is-valid" %}
+                            {% endif %}
+                            {% else %}
+                                {% render_field form.photograph class="form-control" %}
+                            {% endif %}
+                            <em class="text-muted">{{ object.photograph }}</em>
+                            {% if form.photograph.help_text %}
+                            <small class="form-text text-muted">{{ form.photograph.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-4">
+                        <div class="col">
+                            {% if form.is_bound %}
+                            {% if form.profession.errors %}
+                            <div class="form-floating">
+                                {% render_field form.profession class="form-control is-invalid" %}
+                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
+                            </div> 
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.profession class="form-control is-valid" %}
+                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="form-floating">
+                                {% render_field form.profession class="form-control" %}
+                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
+                            </div>
+                            {% endif %}
+                            {% if form.profession.help_text %}
+                            <small class="form-text text-muted">{{ form.profession.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label text-muted" for="about" style="font-size: 13px;">{{ form.about.label }}<span class="asteriskField">*</span></label>
+                            {% if form.is_bound %}
+                            {% if form.about.errors %}
+                                {% render_field form.about class="form-control is-invalid" %}
+                            {% else %}
+                                {% render_field form.about class="form-control is-valid" %}
+                            {% endif %}
+                            {% else %}
+                                {% render_field form.about class="form-control" %}
+                            {% endif %}
+                            {% if form.about.help_text %}
+                            <small class="form-text text-muted">{{ form.about.help_text }}</small>
+                            {% endif %}        
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-5">
+                        <div class="col">
+                            <div class="text-center d-flex justify-content-evenly form-floating">
+                                <button class="btn btn-outline-success btn-lg" type="submit">Update</button>
+                                <span class="btn btn-success btn-lg px-5 paystack-btn"
+                                        data-currency="{{currency}}" 
+                                        data-ref="{{object.ref_number}}"
+                                        data-key="{{paystack_public_key}}" 
+                                        data-email="{{object.email}}" 
+                                        data-amount="{{contest.registration_fee_amount}}"
+                                        data-label="{{object.slug}}"
+                                        data-url="{% url 'contest:verify_registration_fee_payment' object.ref_number %}"
+                                        >
+                                        Pay - ₦{{ contest.registration_fee_amount|intcomma }}</span>
+                            </div>
+                        </div>
+                    </div>                
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endif%}
+
+
+{% endblock %}

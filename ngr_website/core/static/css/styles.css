@@ -1,0 +1,225 @@
+#scroll-to-top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,.3);
+  color: #fff;
+  padding-top: 2px;
+  z-index: 100;
+}
+
+#footerpad {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  position: relative;
+  background-color: rgba(33, 47, 88, 10);
+}
+
+#navbar {
+  color: #ffffff;
+  background-color: rgba(33, 47, 88, 10);
+}
+
+.body-container {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+#registration-form {
+  padding: 30px;
+}
+
+#registration-form button, .profile-vote, .paystack-btn {
+  border-radius: 0px;
+}
+
+.block-27 ul {
+  padding: 0;
+  margin: 0;
+}
+
+.block-27 ul li {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+.block-27 ul li a {
+  color: gray;
+  text-align: center;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e6e6e6;
+  text-decoration: none;
+}
+
+.block-27 ul li.active a, .block-27 ul li.active span {
+  background: #4ba1fa;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.block-27 ul li:hover * {
+  background-color: #e6e6e6;
+  color: #ffffff;
+}
+
+@keyframes move-twink-back {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 0;
+  }
+}
+
+@keyframes move-twink-back-blue {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+.stars, .twinkling, .twinkling-blue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100%;
+  display: block;
+  margin-top: 80px;
+}
+
+.stars {
+  background: transparent url("../img/stars_bg.png") repeat top center;
+  z-index: 0;
+}
+
+.twinkling-blue {
+  background: transparent url("../img/twinkling-blue.png") repeat top center;
+  z-index: 1;
+  -moz-animation: move-twink-back-blue 200s linear infinite;
+  -ms-animation: move-twink-back-blue 200s linear infinite;
+  -o-animation: move-twink-back-blue 200s linear infinite;
+  -webkit-animation: move-twink-back-blue 200s linear infinite;
+  animation: move-twink-back-blue 200s linear infinite;
+}
+
+section {
+  min-height: 100vh;
+}
+
+@media (max-width: 576px) {
+  #registration-form {
+    box-shadow: none !important;
+  }
+}
+
+.item button, .item a {
+  border-radius: 0px;
+}
+
+.custom-search-input {
+  border: none;
+  border-bottom: 2px solid #757575;
+  background: transparent;
+  outline: none;
+  padding-bottom: 5px;
+  text-indent: 40px;
+  width: inherit;
+  border-radius: 0px;
+}
+
+.search-area {
+  display: inline-block;
+}
+
+.search-icon {
+  font-size: 18px;
+  margin-right: -20px;
+  margin-top: 3px;
+}
+
+.ribbon {
+  background-color: rgba(31,148,255,0.8);
+  position: absolute;
+  padding: 6px 10px;
+  top: 15px;
+  border-radius: 0px 6px 6px 0px;
+  color: #ffffff;
+  left: 0px;
+}
+
+.top * {
+  z-index: 3;
+  position: relative;
+}
+
+
+.number-days {
+  color: #db4844;
+}
+
+.number-hours {
+  color: #f07c22;
+}
+
+.number-minutes {
+  color: #f6da74;
+}
+
+.number-seconds {
+  font-size: 50px;
+  color: #abcd58;
+}
+
+.row.text-center.big-countdown span {
+  font-size: 100px;
+  display: block;
+}
+
+.txt-countdown {
+  color: #ffffff;
+  font-size: 20px !important;
+}
+
+.big-countdown {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.social-icons i {
+  font-size: 36px;
+}
+
+.details li {
+  margin-bottom: 10px;
+}
+
+.message-error{
+  background: #df4759;
+}
+
+.message-success{
+  background-color: #42ba96;
+}
+
+.asteriskField{
+  color: #db4844;
+}
+
+#registration-form label{
+  color: #6c757d!important;
+}
+
