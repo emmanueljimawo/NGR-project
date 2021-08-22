@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=puq*qt3glp7gn&(j-fgb8*kubjz0t@qsi9nvk_0h6eb=yfxg='
+SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='*').split(" ")
 
 
 # Application definition
@@ -88,10 +88,15 @@ WSGI_APPLICATION = 'ngr_website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('SQL_DATABASE', BASE_DIR/'db.sqlite3'),
+        'USER': os.environ.get('SQL_USER', 'user'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
+        'HOST': os.environ.get('SQL_HOST', 'localhost'),
+        'PORT': os.environ.get('SQL_PORT', '5432'),
     }
 }
+
 
 
 # Password validation
@@ -138,20 +143,23 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
 # Google recaptcha
-RECAPTCHA_PUBLIC_KEY = '6LcslgwcAAAAAJSQ5hs0COcwFLwGy5ZCgjRF53cG'
-RECAPTCHA_PRIVATE_KEY = '6LcslgwcAAAAAPp2S0-pm7sCVOeODK_JuTFCvyJq'
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
+
+
 # Paystack
-PAYSTACK_PUBLIC_KEY = 'pk_test_f8c83fd3162e224f8dc46b58cb4977f13d8ae247'
-PAYSTACK_SECRET_KEY= 'sk_test_8045899737d7cc819276da1fd79841962ad37f2a'
+PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY')
 CURRENCY="NGN"
 
 # Email Settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'gigantlimited@gmail.com'
-EMAIL_HOST_PASSWORD = 'Am5terd@m'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
