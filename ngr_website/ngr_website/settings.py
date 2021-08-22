@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # My party apps
+    # My apps
     'core',
     'contest',
     # Third party apps
@@ -145,16 +145,23 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Google recaptcha
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+# RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+# RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
+# Google recaptcha
+RECAPTCHA_PUBLIC_KEY='6LcslgwcAAAAAJSQ5hs0COcwFLwGy5ZCgjRF53cG'
+RECAPTCHA_PRIVATE_KEY='6LcslgwcAAAAAPp2S0-pm7sCVOeODK_JuTFCvyJq'
 
 
 # Paystack
-PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY')
-PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY')
+# PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY')
+# PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY')
 CURRENCY="NGN"
+
+PAYSTACK_PUBLIC_KEY='pk_test_f8c83fd3162e224f8dc46b58cb4977f13d8ae247'
+PAYSTACK_SECRET_KEY='sk_test_8045899737d7cc819276da1fd79841962ad37f2a'
+
 
 # Email Settings
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')

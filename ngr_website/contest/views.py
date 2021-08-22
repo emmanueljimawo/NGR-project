@@ -33,14 +33,6 @@ class Registration(FormView):
         self.object.refresh_from_db()
         return HttpResponseRedirect(reverse('contest:profile', kwargs={'slug': self.object.slug}))
 
-    def form_invalid(self, form):
-        """If the form is valid, redirect to the supplied URL."""
-        # name = form.cleaned_data['name']
-        print('-----failed------')
-        print(form.cleaned_data)
-        return self.render_to_response(self.get_context_data(form=form))
-
-
 
 class Profile(UpdateView):
     template_name = 'contest/profile.html'
@@ -59,6 +51,7 @@ class Profile(UpdateView):
 class Contestants(ListView):
     model = Contestant
     template_name = 'contest/contestants.html'
+    paginate_by = 40
 
 
 def verify_registration_fee_payment(request, ref):
