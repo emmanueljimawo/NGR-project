@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}404{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="text-center">
+        <h1 class="text-muted" style="font-size: 70px;">404 ERROR</h1>
+        <a class="text-black-50" href="{% url 'core:home'  %}"><i class="fas fa-arrow-left mr-2"></i>Go back home</a>
+    </div>
+</div>
+
+
+
+{% endblock %}

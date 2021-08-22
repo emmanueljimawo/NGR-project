@@ -12,7 +12,7 @@
         <h1 class="my-4">{{ object.last_name }} {{ object.other_names }}<br></h1>
         <div class="row">
             <!-- <div class="col-md-8" data-aos="fade-right"><img class="img-fluid" src="http://placehold.it/750x500" alt="Alt Text"></div> -->
-            <div class="col-md-8" data-aos="fade-right"><img class="img-fluid" src="{{ object.photograph.url }}" alt="Alt Text"></div>
+            <div class="col-md-8" data-aos="fade-right"><img class="img-fluid"  style="object-fit: fill;" src="{{ object.photograph.url }}" alt="Alt Text"></div>
             <div class="col-md-4 details" data-aos="fade-up">
                 <h3 class="my-3">Details</h3>
                 <ul class="list-unstyled">
@@ -23,8 +23,20 @@
                     <li><span class="text-muted">Profession:</span>&nbsp;{{ object.profession }}</li>
                 </ul>
                 <div class="social-icons"> {% if object.facebook %}<a href="#"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="#"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
-                <h4 class="text-center text-primary mt-4">{% if object.votes %}{{object.votes.count|intcomma}}{% else %}0{% endif %} votes</h4>
-                <div class="mt-4"><button class="btn btn-success btn-lg profile-vote shadow" type="button" style="width: 100%;">vote</button></div>
+                <h4 class="text-center text-primary mt-4">{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} votes</h4>
+                <div class="mt-4">
+                    <span style="width: 100%;" class="btn btn-success btn-lg profile-vote shadow paystack-btn"
+                    data-currency="{{currency}}" 
+                    data-ref="{{ref_number}}"
+                    data-key="{{paystack_public_key}}" 
+                    data-email="{{object.email}}" 
+                    data-amount="{{contest.voting_fee_amount}}"
+                    data-label="{{object.slug}}"
+                    data-url="{% url 'contest:verify_voting_fee_payment' object.slug ref_number %}"
+                    >
+                    vote</span>
+
+                </div>
             </div>
         </div>
         <div class="row">
@@ -44,7 +56,7 @@
             <div class="col-md-8 shadow" id="registration-form">
                 <h1 class="display-3 text-center" style="font-family: Allura, serif;">Payment</h1>
                 <p class="text-muted"><em>Ref No: {{ object.ref_number }}</em></p>
-                <p class="text-danger text-muted"><em>Status:</em>{% if object.payment_verified %}<span class="text-success ms-2"><strong><em>Paid</em></strong></span>{% else %}<span class="text-danger ms-2"><strong><em>Unpaid</em></strong></span>{% endif %}</p>
+                <p class="text-danger text-muted"><em>Status:</em><span class="text-danger ms-2"><strong><em>Pending</em></strong></span></p>
                 <form method="POST" enctype="multipart/form-data"  class="mt-5 needs-validation" >
                     {% csrf_token %}
                     {{ form.recaptcha }}
@@ -257,8 +269,8 @@
                     <div class="row mb-3 mt-5">
                         <div class="col">
                             <div class="text-center d-flex justify-content-evenly form-floating">
-                                <button class="btn btn-outline-success btn-lg" type="submit">Update</button>
-                                <span class="btn btn-success btn-lg px-5 paystack-btn"
+                                <button class="btn btn-outline-primary btn-lg" type="submit">Update</button>
+                                <span class="btn btn-primary btn-lg px-5 paystack-btn"
                                         data-currency="{{currency}}" 
                                         data-ref="{{object.ref_number}}"
                                         data-key="{{paystack_public_key}}" 

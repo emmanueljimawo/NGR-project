@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django_cleanup',
     'django.contrib.humanize',
     'captcha',
-    'crispy_forms',
     'widget_tweaks',
+    'django_filters',
 ]
 
 SITE_ID = 1 

@@ -2,8 +2,6 @@ from django import forms
 from .models import Contestant
 from django.utils.translation import gettext_lazy as _
 from captcha import fields, widgets
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Div, Field, HTML, Layout, Fieldset, ButtonHolder, Row, Submit
 
 
 

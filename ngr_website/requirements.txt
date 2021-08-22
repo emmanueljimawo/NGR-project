@@ -4,8 +4,9 @@ certifi==2021.5.30
 charset-normalizer==2.0.4
 Django==3.2.6
 django-cleanup==5.2.0
-django-crispy-forms==1.12.0
+django-filter==2.4.0
 django-recaptcha==2.0.6
+django-thumbs==0.4
 django-widget-tweaks==1.4.8
 gunicorn==20.1.0
 humanize==3.11.0
