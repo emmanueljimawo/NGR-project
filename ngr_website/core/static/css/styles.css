@@ -208,11 +208,11 @@ section {
 }
 
 .message-error{
-  background: #df4759;
+  background: #dc3545;
 }
 
 .message-success{
-  background-color: #42ba96;
+  background-color: #198754;
 }
 
 .asteriskField{
