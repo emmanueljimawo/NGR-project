@@ -1,11 +1,11 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
+from imagekit import processors
 from .model_choices import SEX, STATES_IN_NIGERIA
 from .paystack import Paystack
-import base64
-from io import BytesIO
-from PIL import Image
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 # Create your models here.
 
@@ -46,7 +46,8 @@ class Contestant(TimeStampModel):
     email = models.EmailField(max_length=200)
     state = models.CharField(max_length=200, choices=STATES_IN_NIGERIA, default='Lagos')
     photograph = models.ImageField(upload_to="photograph/", blank=False)
-    thumbnail=models.ImageField(upload_to='thumbnail/', null=True, blank=True)
+    photograph_thumbnail_small=ImageSpecField(source='photograph', processors=[ResizeToFill(300,300)], format='JPEG', options={'quality':100}) 
+    photograph_thumbnail_large=ImageSpecField(source='photograph', processors=[ResizeToFill(1080,1350)], format='JPEG', options={'quality':100}) 
     profession = models.CharField(max_length=200)
     about = models.TextField(max_length=1500)
     agree_to_the_terms_and_conditions = models.BooleanField(blank=False)
@@ -88,22 +89,6 @@ class Contestant(TimeStampModel):
                 except Contestant.DoesNotExist:
                     self.slug = slug
                     break
-        if not self.photograph:
-            self.thumbnail = None
-        else:
-            thumbnail_size = 320, 320
-            data_img = BytesIO()
-            tiny_img = Image.open(self.photograph)
-            tiny_img.thumbnail(thumbnail_size)
-            tiny_img.save(data_img, format="BMP")
-            tiny_img.close()
-            try:
-                self.thumbnail = "data:image/jpg;base64,{}".format(
-                    base64.b64encode(data_img.getvalue()).decode("utf-8")
-                )
-            except UnicodeDecodeError:
-                self.blurred_image = None
-
         super().save(*args, **kwargs)
 
     class Meta:

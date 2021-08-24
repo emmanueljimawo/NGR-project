@@ -10,7 +10,7 @@
     <div class="container body-container" >
         {% if contest %}
         <div class="row justify-content-center">
-            <div class="col-md-8 shadow" id="registration-form">
+            <div class="col-md-8 shadow" id="registration-form" data-aos="fade-up">
                 <h1 class="display-3 text-center" style="font-family: Allura, serif;">Registration</h1>
                 <form method="post" enctype="multipart/form-data"  class="mt-5 needs-validation" >
                     {% csrf_token %}
@@ -387,6 +387,13 @@
                             </div>
                         </div>
                     </div> 
+                    <small class="mt-5"> 
+                    </small>
+                    <div class="mt-5 lead text-center" style="font-size: 12px;color: #808080;">
+                        <p class="">This site is protected by reCAPTCHA and the Google</p>
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </div>      
                 </form>
             </div>
         </div>

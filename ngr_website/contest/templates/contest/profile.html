@@ -3,46 +3,49 @@
 {% load widget_tweaks %}
 {% load humanize %}
 
-{% block title %}Profile{% endblock %}
 
 {% block content %}
 {% if object.payment_verified %}
+{% block title %}{{ object.last_name }} {{ object.other_names }}{% endblock %}
+
 <section>
     <div class="container body-container">
-        <h1 class="my-4">{{ object.last_name }} {{ object.other_names }}<br></h1>
-        <div class="row">
-            <!-- <div class="col-md-8" data-aos="fade-right"><img class="img-fluid" src="http://placehold.it/750x500" alt="Alt Text"></div> -->
-            <div class="col-md-8" data-aos="fade-right"><img class="img-fluid"  style="object-fit: fill;" src="{{ object.photograph.url }}" alt="Alt Text"></div>
+        <div class="row d-md-flex justify-content-around">
+            <div class="col-md-6" data-aos="fade-right"><img class="img-fluid"  style="object-fit: fill;" src="{{ object.photograph_thumbnail_large.url }}" alt="Alt Text"></div>
             <div class="col-md-4 details" data-aos="fade-up">
-                <h3 class="my-3">Details</h3>
-                <ul class="list-unstyled">
-                    <li><span class="text-muted">Name:</span>&nbsp;{{ object.last_name }} {{ object.other_names }}</li>
-                    <li><span class="text-muted">Sex:</span>&nbsp;{{ object.sex }}</li>
-                    <li><span class="text-muted">Age:</span>&nbsp;{{ object.age }}</li>
-                    <li><span class="text-muted">State:</span>&nbsp;{{ object.state }}</li>
-                    <li><span class="text-muted">Profession:</span>&nbsp;{{ object.profession }}</li>
-                </ul>
-                <div class="social-icons"> {% if object.facebook %}<a href="#"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="#"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
-                <h4 class="text-center text-primary mt-4">{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} votes</h4>
-                <div class="mt-4">
-                    <span style="width: 100%;" class="btn btn-success btn-lg profile-vote shadow paystack-btn"
-                    data-currency="{{currency}}" 
-                    data-ref="{{ref_number}}"
-                    data-key="{{paystack_public_key}}" 
-                    data-email="{{object.email}}" 
-                    data-amount="{{contest.voting_fee_amount}}"
-                    data-label="{{object.slug}}"
-                    data-url="{% url 'contest:verify_voting_fee_payment' object.slug ref_number %}"
-                    >
-                    vote</span>
-
+                <div class="row">
+                    <div class="col">
+                        <h3 class="my-3">Details</h3>
+                        <ul class="list-unstyled">
+                            <li><span class="text-muted">Name:</span>&nbsp;{{ object.last_name }} {{ object.other_names }}</li>
+                            <li><span class="text-muted">Sex:</span>&nbsp;{{ object.sex }}</li>
+                            <li><span class="text-muted">Age:</span>&nbsp;{{ object.age }}</li>
+                            <li><span class="text-muted">State:</span>&nbsp;{{ object.state }}</li>
+                            <li><span class="text-muted">Profession:</span>&nbsp;{{ object.profession }}</li>
+                        </ul>
+                        <div class="social-icons"> {% if object.facebook %}<a href="#"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="#"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
+                        <h4 class="text-center text-primary mt-4">{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} {% if object.count_votes > 1 %}votes{% else %}vote{% endif %}</h4>
+                        <div class="mt-4">
+                            <span style="width: 100%;" class="btn btn-success btn-lg profile-vote shadow paystack-btn"
+                            data-currency="{{currency}}" 
+                            data-ref="{{ref_number}}"
+                            data-key="{{paystack_public_key}}" 
+                            data-email="{{object.email}}" 
+                            data-amount="{{contest.voting_fee_amount}}"
+                            data-label="{{object.slug}}"
+                            data-url="{% url 'contest:verify_voting_fee_payment' object.slug ref_number %}"
+                            >
+                            vote</span>
+        
+                        </div>        
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col mt-4" data-aos="fade-up">
-                <h3 class="my-3">About</h3>
-                <p>{{ object.about|linebreaks }}</p>
+                <div class="row">
+                    <div class="col mt-4">
+                        <h3 class="my-3">About</h3>
+                        <p>{{ object.about|linebreaks }}</p>
+                    </div>
+                </div>        
             </div>
         </div>
     </div>
@@ -53,7 +56,7 @@
 <section>
     <div class="container body-container" >
         <div class="row justify-content-center">
-            <div class="col-md-8 shadow" id="registration-form">
+            <div class="col-md-8 shadow" id="registration-form" data-aos="fade-up">
                 <h1 class="display-3 text-center" style="font-family: Allura, serif;">Payment</h1>
                 <p class="text-muted"><em>Ref No: {{ object.ref_number }}</em></p>
                 <p class="text-danger text-muted"><em>Status:</em><span class="text-danger ms-2"><strong><em>Pending</em></strong></span></p>
@@ -282,7 +285,12 @@
                                         Pay - ₦{{ contest.registration_fee_amount|intcomma }}</span>
                             </div>
                         </div>
-                    </div>                
+                    </div>
+                    <div class="mt-5 lead text-center" style="font-size: 12px;color: #808080;">
+                        <p class="">This site is protected by reCAPTCHA and the Google</p>
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </div>                      
                 </form>
             </div>
         </div>

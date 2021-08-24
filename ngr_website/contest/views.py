@@ -13,6 +13,7 @@ from django.utils.text import slugify
 from django.contrib import messages
 import json
 from django.http import JsonResponse
+from django.db.models import Q
 
 
 
@@ -56,24 +57,27 @@ class Contestants(ListView):
     template_name = 'contest/contestants.html'
     paginate_by = 40
 
+    def get_queryset(self):
+        try:
+            keyword = self.request.GET['q']
+        except:
+            keyword = ''
+        if (keyword != ''):
+            object_list = self.model.objects.filter(
+                Q(state__istartswith=keyword) | Q(last_name__istartswith=keyword) | Q(other_names__icontains=keyword) | Q(email__istartswith=keyword), payment_verified=True)
+                
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
-
-def search_contestants(request):
-    if request.method == 'POST':
-        search_str = json.loads(request.body).get('searchText', None)
-        contestants = Contestant.objects.filter(state__istartswith=search_str, payment_verified=True) | Contestant.objects.filter(last_name__istartswith=search_str, payment_verified=True) | Contestant.objects.filter(
-            other_names__icontains=search_str, payment_verified=True) | Contestant.objects.filter(email__istartswith=search_str, payment_verified=True)
-
-        data = contestants.values()
-        return JsonResponse(list(data), safe=False)
 
 def verify_registration_fee_payment(request, ref):
     contestant = get_object_or_404(Contestant, ref_number=ref)
     payment_verified = contestant.verify_payment()
     if payment_verified:
-        messages.success(request, mark_safe('payment successful'))
+        messages.success(request, mark_safe('Registration payment successful'))
     else:
-        messages.error(request, mark_safe('payment failed'))
+        messages.error(request, mark_safe('Registration payment failed'))
     return HttpResponseRedirect(reverse('contest:profile', kwargs={'slug': contestant.slug}))
 
 
@@ -82,7 +86,7 @@ def verify_voting_fee_payment(request, slug, ref):
     vote = Vote.objects.create(ref_number=ref, contestant=contestant)
     payment_verified = vote.verify_payment()
     if payment_verified:
-        messages.success(request, mark_safe('payment successful'))
+        messages.success(request, mark_safe('Voted successful'))
     else:
-        messages.error(request, mark_safe('payment failed'))
+        messages.error(request, mark_safe('Voting failed'))
     return HttpResponseRedirect(reverse('contest:profile', kwargs={'slug': contestant.slug}))

@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Contact Us{% endblock %}
 
 {% block content %}
-<section>
-    <div class="container body-container">
-        <div>
-            <h1 class="display-4 text-center" style="font-family: Allura, serif;">Contact Us</h1>
+<section class="body-container">
+    <h1 class="display-4 text-center mb-5" style="font-family: Allura, serif;">Contact Us</h1>
+    <div class="container">
+        <div class="row contact-details" style="height: 600px">
+            <div class="col-md-6 d-none d-md-inline" data-aos="fade-right"><img class="img-fluid" src="{% static 'img/contact-us.jpg' %}"></div>
+            <div class="col text-center d-flex justify-content-center align-items-center" data-aos="fade-left" style="background-color: #f2f2f2;">
+                <div>
+                    <div class="row my-2">
+                        <div class="col">
+                            <div>
+                                <h1 class="display-6 text-muted mb-4">Get in Touch</h1>
+                                <p>info@ngr.com</p>
+                                <p>+23480512345678</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col">
+                            <div>
+                                <h1 class="display-6 text-muted mb-4">Address</h1>
+                                <p>1, Garki Road, Abuja, F.CT.<br></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col">
+                            <div><a href="https://www.facebook.com/Naija-Grace-Race-105796708484386/" target="_blank">
+                                    <p class="text-muted">Facebook</p>
+                                </a><a href="https://www.instagram.com/naijagracerace/" target="_blank">
+                                    <p class="text-muted">Instagram</p>
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

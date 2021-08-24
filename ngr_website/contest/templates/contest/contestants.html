@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Contestants{% endblock %}
 
 {% block content %}
 <section class="team-grid body-container">
@@ -10,18 +10,19 @@
         <div class="text-center intro">
             <h1 class="display-4 text-center mb-5" style="font-family: Allura, serif;">Contestants</h1>
         </div>
+        <form method="GET">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 text-center search-area">
-                <div></div><i class="fas fa-search search-icon"></i><input type="search" id="searchField" class="custom-search-input mb-5" placeholder="Search contestants">
+                <i class="fas fa-search search-icon"></i><input autocomplete="off" type="search" name="q" class="custom-search-input mb-md-5" placeholder="Search contestants">
             </div>
         </div>
+    </form>
         {% if object_list  %}
-        <div class="django-output">
         <div class="row people">
             {% for object in object_list %}
             {% if object.payment_verified %}
             <div class="col-md-4 col-lg-3 item" data-aos="fade-up">
-                <div class="box" style="background-image: url({{object.photograph.url}});">
+                <div class="box" style="background-image: url({{object.photograph_thumbnail_small.url}});">
                     <div class="cover">
                         <h3 class="name">{{object.last_name}} {{object.other_names}}</h3>
                         <p class="title">{{object.profession}}</p>
@@ -44,29 +45,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="ribbon"><span>{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} votes</span></div>
+                <div class="ribbon"><span>{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} {% if object.count_votes > 1 %}votes{% else %}vote{% endif %}</span></div>
             </div>
-            {% else %}
-            <h3 class="text-muted display-6">Contestants unavailable...</h3>
             {% endif %}
             {% endfor %}
         </div>
-    </div>
-        <div class="search-output">
-            <div class="row people">
-            </div>
-        </div>
-        <div class="django-output">
             {% if page_obj.paginator.num_pages > 1 %}
             {% include 'includes/pagination.html' with page_obj=page_obj %}
             {% endif %}
-            </div>
     
         {% else %}
-            <h3 class="text-muted display-6">Contestants unavailable...</h3>
+            <h3 class="text-muted display-6" data-aos="fade">Contestants unavailable...</h3>
 
     {% endif %}
 </section>
+
+
+
 {% endblock %}
 
+{% block script %}
+    
+
+{% endblock %}
 

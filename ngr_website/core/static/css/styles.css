@@ -10,11 +10,13 @@
   color: #fff;
   padding-top: 2px;
   z-index: 100;
+  cursor: pointer;
 }
 
 #footerpad {
   padding-top: 2rem;
   padding-bottom: 2rem;
+  z-index: 3;
   position: relative;
   background-color: rgba(33, 47, 88, 10);
 }
@@ -223,3 +225,18 @@ section {
   color: #6c757d!important;
 }
 
+.grecaptcha-badge { 
+  visibility: hidden;
+}
+
+
+.contact-details p {
+  font-size: 1.5rem;
+  color: #111111;
+  font-weight: 700;
+}
+
+.contact-details a p, .contact-details a {
+  font-size: 16px;
+  text-decoration: none;
+}

@@ -16,6 +16,7 @@ class RegistrationForm(forms.ModelForm):
     agree_to_the_terms_and_conditions = forms.BooleanField(label='i hereby agree to the terms and conditions', widget=forms.CheckboxInput(attrs={'class': 'form-check-input', }))
     agree_to_pay_the_registration_fee = forms.BooleanField(label='i hereby agree to pay the registration fee of', widget=forms.CheckboxInput(attrs={'class': 'form-check-input', }))
     agree_that_the_information_provided_is_accurate = forms.BooleanField(label='i hereby agree that the information provided above is accurate', widget=forms.CheckboxInput(attrs={'class': 'form-check-input', }))
+    photograph = forms.ImageField(help_text=_('Recommended size: 1080 x 1920 pixels'), widget=forms.FileInput(attrs={'class': 'form-control', }))
 
 
     class Meta:
@@ -31,7 +32,6 @@ class RegistrationForm(forms.ModelForm):
           'instagram': forms.URLInput(attrs={'class':'form-control', }),
           'email': forms.EmailInput(attrs={'class':'form-control', }),
           'state': forms.Select(attrs={'class':'form-control', }),
-          'photograph': forms.FileInput(attrs={'class': 'form-control', }),
         }
 
 

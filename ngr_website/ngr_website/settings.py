@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'captcha',
     'widget_tweaks',
     'django_filters',
+    'imagekit',
 ]
 
 SITE_ID = 1 
