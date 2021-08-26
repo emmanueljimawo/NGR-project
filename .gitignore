@@ -1,6 +1,8 @@
 media
 *sqlite3
 design
+database.png
+*.dev
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

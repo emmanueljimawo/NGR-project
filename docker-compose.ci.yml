@@ -1,31 +1,39 @@
 version: '3.3'
 
 services:
-  db:
-    image: postgres
-    networks:
-      - ngr-network
-    env_file: .env.dev
-    volumes: 
-      - ngr_db:/var/lib/postgresql/data 
-
   ngr_website:
     build:
       context: ./ngr_website
-      dockerfile: Dockerfile
+      cache_from:
+        - "${NGR_IMAGE}"
+    image: "${NGR_IMAGE}"
     networks:
       - ngr-network
     volumes:
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
-    env_file: .env.dev
     depends_on:
       - db
+    env_file: .env
+
+  db:
+    build:
+      context: ./postgres
+      cache_from:
+        - "${POSTGRES_IMAGE}"
+    image: "${POSTGRES_IMAGE}"
+    networks:
+      - ngr-network
+    env_file: .env
+    volumes: 
+      - ngr_db:/var/lib/postgresql/data 
 
   nginx:
     build:
       context: ./nginx
-    restart: unless-stopped
+      cache_from:
+        - "${NGINX_IMAGE}"
+    image: "${NGINX_IMAGE}"
     ports:
       - 443:443
       - 80:80

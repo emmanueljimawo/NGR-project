@@ -7,7 +7,7 @@
 <section class="body-container" style="background-color: rgb(33, 47, 88);">
     <div class="container">
         <div>
-            <h1 class="display-2 text-center" style="font-family: Allura, serif;color: silver;z-index: 3;position: relative;">Become a Star</h1>
+            <h1 class="display-2 text-center" style="font-family: Allura, serif;color: silver;z-index: 3;position: relative;">{{ contest.title }}</h1>
             <div class="row top">
                 <div class="col">
                     <div class="row text-center big-countdown" data-countdown="{{ contest.start_date.month }}/{{ contest.start_date.day }}/{{ contest.start_date.year }} {{ contest.start_date.hour }}:{{ contest.start_date.minute }}:{{ contest.start_date.second }}">

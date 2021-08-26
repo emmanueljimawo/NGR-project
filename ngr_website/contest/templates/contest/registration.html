@@ -12,6 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 shadow" id="registration-form" data-aos="fade-up">
                 <h1 class="display-3 text-center" style="font-family: Allura, serif;">Registration</h1>
+                <h4 class=" text-center">{{ contest.title }}</h4>
                 <form method="post" enctype="multipart/form-data"  class="mt-5 needs-validation" >
                     {% csrf_token %}
                     {{ form.recaptcha }}

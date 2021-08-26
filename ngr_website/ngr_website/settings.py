@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'foo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', default=1))
+DEBUG = int(os.environ.get('DEBUG', 1))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='*').split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", '*').split(" ")
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_filters',
     'imagekit',
+    # 'django_extensions',
 ]
 
 SITE_ID = 1 
@@ -146,28 +147,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Google recaptcha
-# RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
-# RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
-
-# Google recaptcha
-RECAPTCHA_PUBLIC_KEY='6LcslgwcAAAAAJSQ5hs0COcwFLwGy5ZCgjRF53cG'
-RECAPTCHA_PRIVATE_KEY='6LcslgwcAAAAAPp2S0-pm7sCVOeODK_JuTFCvyJq'
 
 
 # Paystack
-# PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY')
-# PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY')
 CURRENCY="NGN"
 
-PAYSTACK_PUBLIC_KEY='pk_test_f8c83fd3162e224f8dc46b58cb4977f13d8ae247'
-PAYSTACK_SECRET_KEY='sk_test_8045899737d7cc819276da1fd79841962ad37f2a'
-
-
-# Email Settings
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')

@@ -1,31 +1,27 @@
 version: '3.3'
 
 services:
-  db:
-    image: postgres
-    networks:
-      - ngr-network
-    env_file: .env.dev
-    volumes: 
-      - ngr_db:/var/lib/postgresql/data 
-
-  ngr_website:
-    build:
-      context: ./ngr_website
-      dockerfile: Dockerfile
+  gigant_jobs:
+    image: "${NGR_IMAGE}"
     networks:
       - ngr-network
     volumes:
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
-    env_file: .env.dev
     depends_on:
       - db
+    env_file: .env
+
+  db:
+    image: "${POSTGRES_IMAGE}"
+    networks:
+      - ngr-network
+    env_file: .env
+    volumes: 
+      - ngr_db:/var/lib/postgresql/data 
 
   nginx:
-    build:
-      context: ./nginx
-    restart: unless-stopped
+    image: "${NGINX_IMAGE}"
     ports:
       - 443:443
       - 80:80
@@ -35,12 +31,13 @@ services:
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
     depends_on:
-      - ngr_website
+      - gigant_jobs
 
 volumes:
   ngr_db:
   ngr_staticfiles:
   ngr_media:
+
 
 networks:
   ngr-network:
