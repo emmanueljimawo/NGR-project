@@ -23,9 +23,9 @@
                             <li><span class="text-muted">State:</span>&nbsp;{{ object.state }}</li>
                             <li><span class="text-muted">Profession:</span>&nbsp;{{ object.profession }}</li>
                         </ul>
-                        <div class="social-icons"> {% if object.facebook %}<a href="#"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="#"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
+                        <div class="social-icons"> {% if object.facebook %}<a href="{{ object.facebook }}" target="_blank"><i class="fa fa-facebook-official me-4"></i></a>{% endif %}{% if object.instagram %}<a href="{{ object.instagram }}" target="_blank"><i class="fa fa-instagram me-4"></i></a>{% endif %}</div>
                         <h4 class="text-center text-primary mt-4">{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %} {% if object.count_votes > 1 %}votes{% else %}vote{% endif %}</h4>
-                        <div class="mt-4">
+                        <div class="mt-md-2 mt-4">
                             <span style="width: 100%;" class="btn btn-success btn-lg profile-vote shadow paystack-btn"
                             data-currency="{{currency}}" 
                             data-ref="{{ref_number}}"

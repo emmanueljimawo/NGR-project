@@ -27,8 +27,8 @@
                         <h5 class="name">{{object.last_name}} {{object.other_names}}</h5>
                         <p class="title">{{object.profession}}</p>
                         <div class="social">
-                           {% if object.facebook %} <a href="{{object.facebook}}"><i class="fa fa-facebook-official"></i></a>{% endif %}
-                           {% if object.instagram %} <a href="{{object.instagram}}"><i class="fa fa-instagram"></i></a>{% endif %}
+                           {% if object.facebook %} <a href="{{object.facebook}}" target="_blank"><i class="fa fa-facebook-official"></i></a>{% endif %}
+                           {% if object.instagram %} <a href="{{object.instagram}}" target="_blank"><i class="fa fa-instagram"></i></a>{% endif %}
                         </div>
                         <div class="d-flex justify-content-around mt-2"><a class="btn btn-warning" role="button" href="{% url 'contest:profile' object.slug %}">Profile</a>
                             <span class="btn btn-success paystack-btn"
