@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  gigant_jobs:
+  ngr_website:
     image: "${NGR_IMAGE}"
     networks:
       - ngr-network
@@ -31,7 +31,7 @@ services:
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
     depends_on:
-      - gigant_jobs
+      - ngr_website
 
 volumes:
   ngr_db:
