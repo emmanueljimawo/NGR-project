@@ -20,6 +20,11 @@ from django.urls import include, path
 
 admin.site.site_header = 'Admin Login'
 
+handler404 = 'core.views.custom_page_not_found_view'
+handler500 = 'core.views.custom_error_view'
+handler403 = 'core.views.custom_permission_denied_view'
+handler400 = 'core.views.custom_bad_request_view'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
