@@ -86,7 +86,7 @@ def verify_voting_fee_payment(request, slug, ref):
     vote = Vote.objects.create(ref_number=ref, contestant=contestant)
     payment_verified = vote.verify_payment()
     if payment_verified:
-        messages.success(request, mark_safe('Voted successful'))
+        messages.success(request, mark_safe('Voted successfully'))
     else:
         messages.error(request, mark_safe('Voting failed'))
     return HttpResponseRedirect(reverse('contest:profile', kwargs={'slug': contestant.slug}))
