@@ -10,7 +10,7 @@ class RegistrationForm(forms.ModelForm):
     Registration form for contestants.
     """
     recaptcha = fields.ReCaptchaField(label='', widget=widgets.ReCaptchaV2Invisible)
-    phone_number = forms.CharField(help_text=_('Phone number should be 11 digits'), label=_("Phone number (080****)"), widget=forms.TextInput(attrs={'class': 'form-control', 'pattern':'^0\d{1}\d{9}$'}))
+    phone_number = forms.CharField(help_text=_('Phone number should be 11 digits'), label=_("Phone number (080****)"), widget=forms.TextInput(attrs={'class': 'form-control', 'pattern':'^0\d{10}$'}))
     profession = forms.CharField(label=_("What do you do?"), widget=forms.TextInput(attrs={'class':'form-control', }))
     about = forms.CharField(label=_('About you'), widget=forms.Textarea(attrs={'class':'form-control' }))
     agree_to_the_terms_and_conditions = forms.BooleanField(label='i hereby agree to the terms and conditions', widget=forms.CheckboxInput(attrs={'class': 'form-check-input', }))
@@ -45,7 +45,7 @@ class PaymentForm(forms.ModelForm):
     age = forms.CharField(disabled=True)
     sex = forms.CharField(disabled=True)
     email = forms.CharField(disabled=True)
-    phone_number = forms.CharField(help_text=_('Phone number should be 11 digits'), label=_("Phone number (080****)"), widget=forms.TextInput(attrs={'class': 'form-control', }))
+    phone_number = forms.CharField(help_text=_('Phone number should be 11 digits'), label=_("Phone number (080****)"), widget=forms.TextInput(attrs={'class': 'form-control', 'pattern':'^0\d{10}$'}))
     profession = forms.CharField(label=_("What do you do?"), widget=forms.TextInput(attrs={'class':'form-control', }))
     about = forms.CharField(label=_('About you'), widget=forms.Textarea(attrs={'class':'form-control' }))
 
