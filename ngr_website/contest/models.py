@@ -31,7 +31,7 @@ class Contest(TimeStampModel):
 
 
 class Contestant(TimeStampModel):
-    _Phone_number_regex = RegexValidator(regex=r'^0\d{1}0\d{8}$', message="Phone number must be 11 digits and entered in the format: '080**'.")
+    _Phone_number_regex = RegexValidator(regex=r'^0\d{1}\d{9}$', message="Phone number must be 11 digits and entered in the format: '080**'.")
 
     contest = models.ForeignKey(Contest, related_name='contestant', on_delete=models.CASCADE)
     ref_number = models.CharField(max_length=200)
