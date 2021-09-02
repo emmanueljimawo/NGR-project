@@ -68,15 +68,11 @@ services:
       - ngr_website
 
   web-redirect:
-    cache_from:
-      - "${NGINX_WEB_REDIRECT}"
     image: adamkdean/redirect
     restart: unless-stopped
     env_file: .env
 
   nginx-proxy-letsencrypt:
-    cache_from:
-      - "${NGINX_PROXY_LETSENCRYPT}"
     image: jrcs/letsencrypt-nginx-proxy-companion
     env_file: .env
     volumes:
