@@ -45,10 +45,57 @@ services:
     depends_on:
       - ngr_website
 
+  nginx-proxy:
+    container_name: nginx-proxy
+    build: ./nginx
+    restart: always
+    cache_from:
+      - "${NGINX_IMAGE}"
+    image: "${NGINX_IMAGE}"
+    ports:
+      - 443:443
+      - 80:80
+    networks:
+      - ngr-network
+    volumes:
+      - ngr_staticfiles:/usr/src/app/staticfiles
+      - ngr_media:/usr/src/app/media
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - ngr_website
+
+  web-redirect:
+    cache_from:
+      - "${NGINX_WEB_REDIRECT}"
+    image: adamkdean/redirect
+    restart: unless-stopped
+    env_file: .env
+
+  nginx-proxy-letsencrypt:
+    cache_from:
+      - "${NGINX_PROXY_LETSENCRYPT}"
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+
 volumes:
   ngr_db:
   ngr_staticfiles:
   ngr_media:
+  certs:
+  html:
+  vhost:
+  acme:
 
 networks:
   ngr-network:

@@ -20,7 +20,9 @@ services:
     volumes: 
       - ngr_db:/var/lib/postgresql/data 
 
-  nginx:
+  nginx-proxy:
+    container_name: nginx-proxy
+    restart: always
     image: "${NGINX_IMAGE}"
     ports:
       - 443:443
@@ -30,13 +32,40 @@ services:
     volumes:
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - ngr_website
+
+  web-redirect:
+    image: "${NGINX_WEB_REDIRECT}"
+    restart: unless-stopped
+    env_file: .env
+
+  nginx-proxy-letsencrypt:
+    image: "${NGINX_PROXY_LETSENCRYPT}"
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+
+      
 
 volumes:
   ngr_db:
   ngr_staticfiles:
   ngr_media:
+  certs:
+  html:
+  vhost:
+  acme:
 
 
 networks:

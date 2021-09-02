@@ -3,8 +3,10 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
-  NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.6
+  NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.7
   NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx:v1.0.0
+  NGINX_WEB_REDIRECT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web-redirect:v1.0.0
+  NGINX_PROXY_LETSENCRYPT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx-proxy-letsencrypt:v1.0.0
   POSTGRES_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/postgres:v1.0.0
 
 jobs:
@@ -35,11 +37,21 @@ jobs:
           echo RECAPTCHA_PRIVATE_KEY=${{ secrets.RECAPTCHA_PRIVATE_KEY }} >> .env
           echo PAYSTACK_PUBLIC_KEY=${{ secrets.PAYSTACK_PUBLIC_KEY }} >> .env
           echo PAYSTACK_SECRET_KEY=${{ secrets.PAYSTACK_SECRET_KEY }} >> .env
+          echo VIRTUAL_HOST=${{ secrets.VIRTUAL_HOST }} >> .env
+          echo VIRTUAL_PORT=${{ secrets.VIRTUAL_PORT }} >> .env
+          echo LETSENCRYPT_HOST=${{ secrets.LETSENCRYPT_HOST }} >> .env
+          echo DEFAULT_EMAIL=${{ secrets.DEFAULT_EMAIL }} >> .env
+          echo NGINX_PROXY_CONTAINER=${{ secrets.NGINX_PROXY_CONTAINER }} >> .env
+          echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
+          echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
+          echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
 
       - name: Set environment variables
         run: |
           echo "NGR_IMAGE=$(echo ${{env.NGR_IMAGE}} )" >> $GITHUB_ENV
           echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
+          echo "NGINX_WEB_REDIRECT=$(echo ${{env.NGINX_WEB_REDIRECT}} )" >> $GITHUB_ENV
+          echo "NGINX_PROXY_LETSENCRYPT=$(echo ${{env.NGINX_PROXY_LETSENCRYPT}} )" >> $GITHUB_ENV
           echo "POSTGRES_IMAGE=$(echo ${{env.POSTGRES_IMAGE}} )" >> $GITHUB_ENV
       - name: Log in to GitHub Packages
         run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
@@ -49,6 +61,8 @@ jobs:
         run: |
           docker pull ${{ env.NGR_IMAGE }} || true
           docker pull ${{ env.NGINX_IMAGE }} || true
+          docker pull ${{ env.NGINX_WEB_REDIRECT }} || true
+          docker pull ${{ env.NGINX_PROXY_LETSENCRYPT }} || true
           docker pull ${{ env.POSTGRES_IMAGE }} || true
       - name: Build images
         run: |
@@ -57,6 +71,8 @@ jobs:
         run: |
           docker push ${{ env.NGR_IMAGE }}
           docker push ${{ env.NGINX_IMAGE }}
+          docker push ${{ env.NGINX_WEB_REDIRECT }}
+          docker push ${{ env.NGINX_PROXY_LETSENCRYPT }}
           docker push ${{ env.POSTGRES_IMAGE }}
 
   deploy:
@@ -86,8 +102,18 @@ jobs:
           echo RECAPTCHA_PRIVATE_KEY=${{ secrets.RECAPTCHA_PRIVATE_KEY }} >> .env
           echo PAYSTACK_PUBLIC_KEY=${{ secrets.PAYSTACK_PUBLIC_KEY }} >> .env
           echo PAYSTACK_SECRET_KEY=${{ secrets.PAYSTACK_SECRET_KEY }} >> .env
+          echo VIRTUAL_HOST=${{ secrets.VIRTUAL_HOST }} >> .env
+          echo VIRTUAL_PORT=${{ secrets.VIRTUAL_PORT }} >> .env
+          echo LETSENCRYPT_HOST=${{ secrets.LETSENCRYPT_HOST }} >> .env
+          echo DEFAULT_EMAIL=${{ secrets.DEFAULT_EMAIL }} >> .env
+          echo NGINX_PROXY_CONTAINER=${{ secrets.NGINX_PROXY_CONTAINER }} >> .env
+          echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
+          echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
+          echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
           echo NGR_IMAGE=${{ env.NGR_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
+          echo NGINX_WEB_REDIRECT=${{ env.NGINX_WEB_REDIRECT }} >> .env
+          echo NGINX_PROXY_LETSENCRYPT=${{ env.NGINX_PROXY_LETSENCRYPT }} >> .env
           echo POSTGRES_IMAGE=${{ env.POSTGRES_IMAGE }} >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
@@ -108,6 +134,8 @@ jobs:
             docker login ghcr.io -u ${{ secrets.NAMESPACE }} -p ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             docker pull $NGR_IMAGE
             docker pull $NGINX_IMAGE 
+            docker pull $NGINX_WEB_REDIRECT 
+            docker pull $NGINX_PROXY_LETSENCRYPT 
             docker pull $POSTGRES_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
           ENDSSH
