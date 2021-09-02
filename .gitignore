@@ -3,6 +3,7 @@ media
 design
 database.png
 *.dev
+PRIVATE_KEY.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
