@@ -28,27 +28,13 @@ services:
     volumes: 
       - ngr_db:/var/lib/postgresql/data 
 
-  nginx:
+  nginx-proxy:
+    container_name: nginx-proxy
+    restart: always
     build:
       context: ./nginx
       cache_from:
         - "${NGINX_IMAGE}"
-    image: "${NGINX_IMAGE}"
-    ports:
-      - 443:443
-      - 80:80
-    networks:
-      - ngr-network
-    volumes:
-      - ngr_staticfiles:/usr/src/app/staticfiles
-      - ngr_media:/usr/src/app/media
-    depends_on:
-      - ngr_website
-
-  nginx-proxy:
-    container_name: nginx-proxy
-    build: ./nginx
-    restart: always
     image: "${NGINX_IMAGE}"
     ports:
       - 443:443
@@ -66,12 +52,20 @@ services:
       - ngr_website
 
   web-redirect:
-    image: adamkdean/redirect
+    build:
+      context: ./web-redirect
+      cache_from:
+        - "${NGINX_WEB_REDIRECT}"
+    image: "${NGINX_WEB_REDIRECT}"
     restart: unless-stopped
     env_file: .env
 
   nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    build:
+      context: ./nginx-proxy-letsencrypt
+      cache_from:
+        - "${NGINX_PROXY_LETSENCRYPT}"
+    image: "${NGINX_PROXY_LETSENCRYPT}"
     env_file: .env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
