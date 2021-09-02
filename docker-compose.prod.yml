@@ -41,6 +41,16 @@ services:
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
 
+  web-redirect:
+    image: adamkdean/redirect
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: www.naijagracerace.com
+      REDIRECT_STATUS_CODE: 307
+      REDIRECT_LOCATION: "https://naijagracerace.com"
+    networks:
+      - ngr-network
+
   nginx-proxy-letsencrypt:
     image: "${NGINX_PROXY_LETSENCRYPT}"
     env_file: .env
