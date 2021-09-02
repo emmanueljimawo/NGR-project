@@ -45,7 +45,6 @@ jobs:
           echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
           echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
           echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
-          echo ACME_CA_URI=${{ secrets.ACME_CA_URI }} >> .env
 
       - name: Set environment variables
         run: |
@@ -111,7 +110,6 @@ jobs:
           echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
           echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
           echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
-          echo ACME_CA_URI=${{ secrets.ACME_CA_URI }} >> .env
           echo NGR_IMAGE=${{ env.NGR_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
           echo NGINX_WEB_REDIRECT=${{ env.NGINX_WEB_REDIRECT }} >> .env
