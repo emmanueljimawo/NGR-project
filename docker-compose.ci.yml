@@ -49,8 +49,6 @@ services:
     container_name: nginx-proxy
     build: ./nginx
     restart: always
-    cache_from:
-      - "${NGINX_IMAGE}"
     image: "${NGINX_IMAGE}"
     ports:
       - 443:443
