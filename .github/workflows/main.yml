@@ -4,10 +4,10 @@ on: [push]
 
 env:
   NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.7
-  NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx:v1.0.0
-  NGINX_WEB_REDIRECT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web-redirect:v1.0.0
-  NGINX_PROXY_LETSENCRYPT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx-proxy-letsencrypt:v1.0.0
-  POSTGRES_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/postgres:v1.0.0
+  NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx:v1.0.1
+  NGINX_WEB_REDIRECT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web-redirect:v1.0.1
+  NGINX_PROXY_LETSENCRYPT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx-proxy-letsencrypt:v1.0.1
+  POSTGRES_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/postgres:v1.0.1
 
 jobs:
 

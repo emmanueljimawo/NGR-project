@@ -38,6 +38,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - ngr_website
+    networks:
+      - ngr-network
 
   web-redirect:
     image: "${NGINX_WEB_REDIRECT}"
@@ -55,7 +57,8 @@ services:
       - acme:/etc/acme.sh
     depends_on:
       - nginx-proxy
-
+    networks:
+      - ngr-network
       
 
 volumes:
