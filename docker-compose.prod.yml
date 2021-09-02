@@ -39,11 +39,6 @@ services:
     depends_on:
       - ngr_website
 
-  web-redirect:
-    image: "${NGINX_WEB_REDIRECT}"
-    restart: unless-stopped
-    env_file: .env
-
   nginx-proxy-letsencrypt:
     image: "${NGINX_PROXY_LETSENCRYPT}"
     env_file: .env

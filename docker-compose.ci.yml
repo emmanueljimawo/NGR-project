@@ -51,15 +51,6 @@ services:
     depends_on:
       - ngr_website
 
-  web-redirect:
-    build:
-      context: ./web-redirect
-      cache_from:
-        - "${NGINX_WEB_REDIRECT}"
-    image: "${NGINX_WEB_REDIRECT}"
-    restart: unless-stopped
-    env_file: .env
-
   nginx-proxy-letsencrypt:
     build:
       context: ./nginx-proxy-letsencrypt
