@@ -38,6 +38,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - ngr_website
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
 
   nginx-proxy-letsencrypt:
     image: "${NGINX_PROXY_LETSENCRYPT}"
