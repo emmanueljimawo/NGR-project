@@ -13,7 +13,7 @@ services:
     env_file: .env
 
   db:
-    image: "${POSTGRES_IMAGE}"
+    image: postgres
     networks:
       - ngr-network
     env_file: .env
@@ -52,7 +52,7 @@ services:
       - ngr-network
 
   nginx-proxy-letsencrypt:
-    image: "${NGINX_PROXY_LETSENCRYPT}"
+    image: jrcs/letsencrypt-nginx-proxy-companion
     env_file: .env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro

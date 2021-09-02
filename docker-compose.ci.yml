@@ -17,11 +17,7 @@ services:
     env_file: .env
 
   db:
-    build:
-      context: ./postgres
-      cache_from:
-        - "${POSTGRES_IMAGE}"
-    image: "${POSTGRES_IMAGE}"
+    image: postgres
     networks:
       - ngr-network
     env_file: .env
@@ -53,21 +49,6 @@ services:
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
 
-  nginx-proxy-letsencrypt:
-    build:
-      context: ./nginx-proxy-letsencrypt
-      cache_from:
-        - "${NGINX_PROXY_LETSENCRYPT}"
-    image: "${NGINX_PROXY_LETSENCRYPT}"
-    env_file: .env
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - html:/usr/share/nginx/html
-      - vhost:/etc/nginx/vhost.d
-      - acme:/etc/acme.sh
-    depends_on:
-      - nginx-proxy
 
 volumes:
   ngr_db:

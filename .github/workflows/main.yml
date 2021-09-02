@@ -5,8 +5,6 @@ on: [push]
 env:
   NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.9
   NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx:v1.0.3
-  NGINX_PROXY_LETSENCRYPT: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx-proxy-letsencrypt:v1.0.3
-  POSTGRES_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/postgres:v1.0.3
 
 jobs:
 
@@ -49,8 +47,6 @@ jobs:
         run: |
           echo "NGR_IMAGE=$(echo ${{env.NGR_IMAGE}} )" >> $GITHUB_ENV
           echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
-          echo "NGINX_PROXY_LETSENCRYPT=$(echo ${{env.NGINX_PROXY_LETSENCRYPT}} )" >> $GITHUB_ENV
-          echo "POSTGRES_IMAGE=$(echo ${{env.POSTGRES_IMAGE}} )" >> $GITHUB_ENV
       - name: Log in to GitHub Packages
         run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
         env:
@@ -59,8 +55,6 @@ jobs:
         run: |
           docker pull ${{ env.NGR_IMAGE }} || true
           docker pull ${{ env.NGINX_IMAGE }} || true
-          docker pull ${{ env.NGINX_PROXY_LETSENCRYPT }} || true
-          docker pull ${{ env.POSTGRES_IMAGE }} || true
       - name: Build images
         run: |
           docker-compose -f docker-compose.ci.yml build
@@ -68,8 +62,6 @@ jobs:
         run: |
           docker push ${{ env.NGR_IMAGE }}
           docker push ${{ env.NGINX_IMAGE }}
-          docker push ${{ env.NGINX_PROXY_LETSENCRYPT }}
-          docker push ${{ env.POSTGRES_IMAGE }}
 
   deploy:
     name: Deploy to DigitalOcean
@@ -108,8 +100,6 @@ jobs:
           echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
           echo NGR_IMAGE=${{ env.NGR_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
-          echo NGINX_PROXY_LETSENCRYPT=${{ env.NGINX_PROXY_LETSENCRYPT }} >> .env
-          echo POSTGRES_IMAGE=${{ env.POSTGRES_IMAGE }} >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -129,7 +119,5 @@ jobs:
             docker login ghcr.io -u ${{ secrets.NAMESPACE }} -p ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             docker pull $NGR_IMAGE
             docker pull $NGINX_IMAGE 
-            docker pull $NGINX_PROXY_LETSENCRYPT 
-            docker pull $POSTGRES_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
           ENDSSH
