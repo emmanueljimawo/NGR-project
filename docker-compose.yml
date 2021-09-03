@@ -22,10 +22,11 @@ services:
     depends_on:
       - db
 
-  nginx:
+  nginx-proxy:
+    container_name: nginx-proxy
     build:
       context: ./nginx
-    restart: unless-stopped
+    restart: always
     ports:
       - 443:443
       - 80:80

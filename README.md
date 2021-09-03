@@ -8,7 +8,7 @@ Online platform for Pageant Competitions
 Run locally:
 
 ```sh
-$ docker-compose -f docker-compose.dev.yml up -d
+$ docker-compose up -d --build 
 ```
 Verify [http://localhost:8000/](http://localhost:8000/) works as expected:
 
@@ -18,7 +18,7 @@ Verify [http://localhost:8000/](http://localhost:8000/) works as expected:
 Run locally:
 
 ```sh
-$ docker-compose up -d --build 
+$ docker-compose -f docker-compose.prod.yml up -d --build
 ```
 
 
