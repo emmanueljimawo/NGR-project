@@ -147,10 +147,15 @@ MEDIA_ROOT = BASE_DIR/'media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
+# # Google recaptcha
+# RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
+# RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
+# RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+
 # Google recaptcha
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+RECAPTCHA_PUBLIC_KEY='6LcslgwcAAAAAJSQ5hs0COcwFLwGy5ZCgjRF53cG'
+RECAPTCHA_PRIVATE_KEY='6LcslgwcAAAAAPp2S0-pm7sCVOeODK_JuTFCvyJq'
+
 
 
 # Paystack

@@ -1,11 +1,10 @@
+{% if messages %}
 <ul id="alert-message" class="messages">
-    {% if messages %}
-
     {% for message in messages %}
     <li class="text-center fixed-top message-{{ message.tags }} text-white" data-aos="slide-down"
         data-aos-duration="900" style="z-index: 1100;width: 100vw; text-decoration: none; list-style-type: none;">
         {{message}}
     </li>
     {% endfor %}
-    {% endif %}
 </ul>
+{% endif %}

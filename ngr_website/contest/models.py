@@ -42,6 +42,7 @@ class Contestant(TimeStampModel):
     sex = models.CharField(max_length=10, choices=SEX, default='female')
     facebook = models.URLField(max_length=200, blank=True, null=True)
     instagram = models.URLField(max_length=200, blank=True, null=True)
+    twitter = models.URLField(max_length=200, blank=True, null=True)
     phone_number = models.CharField(validators=[_Phone_number_regex], max_length=20)
     email = models.EmailField(max_length=200)
     state = models.CharField(max_length=200, choices=STATES_IN_NIGERIA, default='Lagos')

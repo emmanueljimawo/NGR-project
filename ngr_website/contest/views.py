@@ -31,6 +31,9 @@ class Registration(FormView):
         ref_number = slugify(f"{form.cleaned_data['last_name'].lower()} {contest.title.lower()} {uuid.uuid4().hex}")
         self.object = form.save(commit=False)
         self.object.contest = contest 
+        self.object.agree_to_the_terms_and_conditions = True 
+        self.object.agree_to_pay_the_registration_fee = True 
+        self.object.agree_that_the_information_provided_is_accurate = True 
         self.object.ref_number = ref_number
         self.object.save()
         self.object.refresh_from_db()

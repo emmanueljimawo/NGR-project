@@ -4,404 +4,578 @@
 {% load humanize %}
 
 {% block title %}Registration{% endblock %}
+{% block body_id%}registration-bg{% endblock %}
+
 
 {% block content %}
-<section>
-    <div class="container body-container" >
-        {% if contest %}
-        <div class="row justify-content-center">
-            <div class="col-md-8 shadow" id="registration-form" data-aos="fade-up">
-                <h1 class="display-3 text-center" style="font-family: Allura, serif;">Registration</h1>
-                <h4 class=" text-center">{{ contest.title }}</h4>
-                <form method="post" enctype="multipart/form-data"  class="mt-5 needs-validation" >
-                    {% csrf_token %}
-                    {{ form.recaptcha }}
-                    {% for hidden_field in form.hidden_fields %}
-                    {{ hidden_field }}
-                    {% endfor %}
-
-                    {% if form.non_field_errors %}
-                    <div class="alert alert-danger" role="alert">
-                        {% for error in form.non_field_errors %}
-                        {{ error }}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <div class="row">
-                        <div class="form-group col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.last_name.errors %}
-                            <div class="form-floating">
-                                {% render_field form.last_name class="form-control is-invalid" %}
-                                <label class="form-label" for="last_name">{{ form.last_name.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.last_name class="form-control is-valid" %}
-                                <label class="form-label" for="last_name">{{ form.last_name.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.last_name class="form-control" %}
-                                <label class="form-label" for="last_name">{{ form.last_name.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.last_name.help_text %}
-                            <small class="form-text text-muted">{{ form.last_name.help_text }}</small>
-                            {% endif %}        
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.other_names.errors %}
-                            <div class="form-floating">
-                                {% render_field form.other_names class="form-control is-invalid" %}
-                                <label class="form-label" for="other_names">{{ form.other_names.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.other_names class="form-control is-valid" %}
-                                <label class="form-label" for="other_names">{{ form.other_names.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                           {% else %}
-                            <div class="form-floating">
-                                {% render_field form.other_names class="form-control" %}
-                                <label class="form-label" for="other_names">{{ form.other_names.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.other_names.help_text %}
-                            <small class="form-text text-muted">{{ form.other_names.help_text }}</small>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.age.errors %}
-                            <div class="form-floating">
-                                {% render_field form.age class="form-control is-invalid" %}
-                                <label class="form-label" for="age">{{ form.age.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.age class="form-control is-valid" %}
-                                <label class="form-label" for="age">{{ form.age.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.age class="form-control" %}
-                                <label class="form-label" for="age">{{ form.age.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.age.help_text %}
-                            <small class="form-text text-muted">{{ form.age.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                        <div class="form-group col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.sex.errors %}
-                            <div class="form-floating">
-                                {% render_field form.sex class="form-control is-invalid" %}
-                                <label class="form-label" for="sex">{{ form.sex.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.sex class="form-control is-valid" %}
-                                <label class="form-label" for="sex">{{ form.sex.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.sex class="form-control" %}
-                                <label class="form-label" for="sex">{{ form.sex.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.sex.help_text %}
-                            <small class="form-text text-muted">{{ form.sex.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.facebook.errors %}
-                            <div class="form-floating">
-                                {% render_field form.facebook class="form-control is-invalid" %}
-                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.facebook class="form-control is-valid" %}
-                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.facebook class="form-control" %}
-                                <label class="form-label" for="facebook">{{ form.facebook.label }}</label>
-                            </div>
-                            {% endif %}
-                            {% if form.facebook.help_text %}
-                            <small class="form-text text-muted">{{ form.facebook.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                        <div class="form-group col-md-6 mb-3">
-                            {% if form.is_bound %}
-                            {% if form.instagram.errors %}
-                            <div class="form-floating">
-                                {% render_field form.instagram class="form-control is-invalid" %}
-                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.instagram class="form-control is-valid" %}
-                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.instagram class="form-control" %}
-                                <label class="form-label" for="instagram">{{ form.instagram.label }}</label>
-                            </div>
-                            {% endif %}
-                            {% if form.instagram.help_text %}
-                            <small class="form-text text-muted">{{ form.instagram.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.phone_number.errors %}
-                            <div class="form-floating">
-                                {% render_field form.phone_number class="form-control is-invalid" %}
-                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.phone_number class="form-control is-valid" %}
-                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.phone_number class="form-control" %}
-                                <label class="form-label" for="phone_number">{{ form.phone_number.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.phone_number.help_text %}
-                            <small class="form-text text-muted">{{ form.phone_number.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.email.errors %}
-                            <div class="form-floating">
-                                {% render_field form.email class="form-control is-invalid" %}
-                                <label class="form-label" for="email">{{ form.email.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.email class="form-control is-valid" %}
-                                <label class="form-label" for="email">{{ form.email.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.email class="form-control" %}
-                                <label class="form-label" for="email">{{ form.email.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.email.help_text %}
-                            <small class="form-text text-muted">{{ form.email.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.state.errors %}
-                            <div class="form-floating">
-                                {% render_field form.state class="form-control is-invalid" %}
-                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.state class="form-control is-valid" %}
-                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.state class="form-control" %}
-                                <label class="form-label" for="state">{{ form.state.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.state.help_text %}
-                            <small class="form-text text-muted">{{ form.state.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label text-muted" for="photograph" style="font-size: 13px;">{{ form.photograph.label }}<span class="asteriskField">*</span></label>                            {% if form.is_bound %}
-                            {% if form.photograph.errors %}
-                                {% render_field form.photograph class="form-control is-invalid" %}
-                            {% else %}
-                                {% render_field form.photograph class="form-control is-valid" %}
-                            {% endif %}
-                            {% else %}
-                                {% render_field form.photograph class="form-control" %}
-                            {% endif %}
-                            {% if form.photograph.help_text %}
-                            <small class="form-text text-muted">{{ form.photograph.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3 mt-4">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.profession.errors %}
-                            <div class="form-floating">
-                                {% render_field form.profession class="form-control is-invalid" %}
-                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.profession class="form-control is-valid" %}
-                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-floating">
-                                {% render_field form.profession class="form-control" %}
-                                <label class="form-label" for="profession">{{ form.profession.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.profession.help_text %}
-                            <small class="form-text text-muted">{{ form.profession.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label class="form-label text-muted" for="about" style="font-size: 13px;">{{ form.about.label }}<span class="asteriskField">*</span></label>
-                            {% if form.is_bound %}
-                            {% if form.about.errors %}
-                                {% render_field form.about class="form-control is-invalid" %}
-                            {% else %}
-                                {% render_field form.about class="form-control is-valid" %}
-                            {% endif %}
-                            {% else %}
-                                {% render_field form.about class="form-control" %}
-                            {% endif %}
-                            {% if form.about.help_text %}
-                            <small class="form-text text-muted">{{ form.about.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3 mt-5">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.agree_to_the_terms_and_conditions.errors %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_the_terms_and_conditions class="form-check-input is-invalid" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_the_terms_and_conditions">{{ form.agree_to_the_terms_and_conditions.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_the_terms_and_conditions class="form-check-input is-valid" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_the_terms_and_conditions">{{ form.agree_to_the_terms_and_conditions.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_the_terms_and_conditions class="form-check-input" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_the_terms_and_conditions">{{ form.agree_to_the_terms_and_conditions.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.agree_to_the_terms_and_conditions.help_text %}
-                            <small class="form-text text-muted">{{ form.agree_to_the_terms_and_conditions.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.agree_to_pay_the_registration_fee.errors %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_pay_the_registration_fee class="form-check-input is-invalid" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_pay_the_registration_fee">{{ form.agree_to_pay_the_registration_fee.label }} ₦{{contest.registration_fee_amount|intcomma}}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_pay_the_registration_fee class="form-check-input is-valid" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_pay_the_registration_fee">{{ form.agree_to_pay_the_registration_fee.label }} ₦{{contest.registration_fee_amount|intcomma}}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_to_pay_the_registration_fee class="form-check-input" %}
-                                <label class="form-check-label text-uppercase" for="agree_to_pay_the_registration_fee">{{ form.agree_to_pay_the_registration_fee.label }} ₦{{contest.registration_fee_amount|intcomma}}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.agree_to_pay_the_registration_fee.help_text %}
-                            <small class="form-text text-muted">{{ form.agree_to_pay_the_registration_fee.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            {% if form.is_bound %}
-                            {% if form.agree_that_the_information_provided_is_accurate.errors %}
-                            <div class="form-check">
-                                {% render_field form.agree_that_the_information_provided_is_accurate class="form-check-input is-invalid" %}
-                                <label class="form-check-label text-uppercase" for="agree_that_the_information_provided_is_accurate">{{ form.agree_that_the_information_provided_is_accurate.label }}<span class="asteriskField">*</span></label>
-                            </div> 
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_that_the_information_provided_is_accurate class="form-check-input is-valid" %}
-                                <label class="form-check-label text-uppercase" for="agree_that_the_information_provided_is_accurate">{{ form.agree_that_the_information_provided_is_accurate.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% else %}
-                            <div class="form-check">
-                                {% render_field form.agree_that_the_information_provided_is_accurate class="form-check-input" %}
-                                <label class="form-check-label text-uppercase" for="agree_that_the_information_provided_is_accurate">{{ form.agree_that_the_information_provided_is_accurate.label }}<span class="asteriskField">*</span></label>
-                            </div>
-                            {% endif %}
-                            {% if form.agree_that_the_information_provided_is_accurate.help_text %}
-                            <small class="form-text text-muted">{{ form.agree_that_the_information_provided_is_accurate.help_text }}</small>
-                            {% endif %}        
-                        </div>
-                    </div>
-                  <div class="row mb-3 mt-5">
-                        <div class="col">
-                            <div class="text-center"> 
-                                <button class="btn btn-outline-primary btn-lg" >Submit and Pay</button> 
-                            </div>
-                        </div>
-                    </div> 
-                    <small class="mt-5"> 
-                    </small>
-                    <div class="mt-5 lead text-center" style="font-size: 12px;color: #808080;">
-                        <p class="">This site is protected by reCAPTCHA and the Google</p>
-                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-                    </div>      
-                </form>
-            </div>
-        </div>
-        {% else %}
-        <h3 class="text-muted display-6">No active competition at the moment</h3>
-        {% endif %}    
+<div class="container mt-5">
+    <div class="text-md-center">
+        <div class="d-none d-lg-block"><svg width="158" height="158" viewBox="0 0 158 158" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M158 120.838H0V120.917H158V120.838Z" fill="#EBEBEB" />
+                <path d="M142.168 125.923H135.317V126.002H142.168V125.923Z" fill="#EBEBEB" />
+                <path d="M108.915 124.286H98.1367V124.365H108.915V124.286Z" fill="#EBEBEB" />
+                <path d="M139.394 122.99H125.322V123.069H139.394V122.99Z" fill="#EBEBEB" />
+                <path d="M54.6745 124.583H51.1543V124.662H54.6745V124.583Z" fill="#EBEBEB" />
+                <path d="M48.3383 124.583H36.207V124.662H48.3383V124.583Z" fill="#EBEBEB" />
+                <path d="M29.7073 123.249H20.9541V123.328H29.7073V123.249Z" fill="#EBEBEB" />
+                <path
+                    d="M74.8919 106.745H13.8754C13.3974 106.744 12.9393 106.553 12.6016 106.215C12.2639 105.877 12.0742 105.418 12.0742 104.94V19.1684C12.0784 18.6932 12.2699 18.2388 12.6071 17.9039C12.9444 17.569 13.4001 17.3807 13.8754 17.3799H74.8919C75.3704 17.3799 75.8293 17.57 76.1677 17.9084C76.5061 18.2468 76.6962 18.7057 76.6962 19.1842V104.94C76.6962 105.419 76.5061 105.878 76.1677 106.216C75.8293 106.555 75.3704 106.745 74.8919 106.745ZM13.8754 17.4431C13.4184 17.4439 12.9803 17.6261 12.6574 17.9495C12.3346 18.273 12.1532 18.7114 12.1532 19.1684V104.94C12.1532 105.397 12.3346 105.836 12.6574 106.159C12.9803 106.483 13.4184 106.665 13.8754 106.666H74.8919C75.3492 106.665 75.7876 106.483 76.1109 106.159C76.4343 105.836 76.6164 105.398 76.6172 104.94V19.1684C76.6164 18.7111 76.4343 18.2727 76.1109 17.9494C75.7876 17.626 75.3492 17.4439 74.8919 17.4431H13.8754Z"
+                    fill="#EBEBEB" />
+                <path
+                    d="M143.246 106.745H82.2262C81.7479 106.744 81.2895 106.553 80.9513 106.215C80.6131 105.877 80.4227 105.419 80.4219 104.94V19.1684C80.4269 18.6929 80.6191 18.2385 80.9568 17.9037C81.2946 17.5689 81.7507 17.3807 82.2262 17.3799H143.246C143.721 17.3815 144.176 17.5702 144.512 17.905C144.849 18.2398 145.04 18.6937 145.044 19.1684V104.94C145.044 105.418 144.855 105.876 144.518 106.214C144.181 106.552 143.723 106.743 143.246 106.745ZM82.2262 17.4431C81.7689 17.4439 81.3305 17.626 81.0071 17.9494C80.6838 18.2727 80.5017 18.7111 80.5009 19.1684V104.94C80.5017 105.398 80.6838 105.836 81.0071 106.159C81.3305 106.483 81.7689 106.665 82.2262 106.666H143.246C143.703 106.665 144.142 106.483 144.465 106.159C144.788 105.836 144.97 105.398 144.971 104.94V19.1684C144.97 18.7111 144.788 18.2727 144.465 17.9494C144.142 17.626 143.703 17.4439 143.246 17.4431H82.2262Z"
+                    fill="#EBEBEB" />
+                <path
+                    d="M36.34 55.1829C38.0924 55.1829 39.773 54.4867 41.0122 53.2476C42.2514 52.0084 42.9475 50.3278 42.9475 48.5753C42.9475 46.8229 42.2514 45.1422 41.0122 43.9031C39.773 42.6639 38.0924 41.9678 36.34 41.9678H35.5278V55.1829H36.34Z"
+                    fill="#E0E0E0" />
+                <path
+                    d="M35.5216 55.1829C39.1709 55.1829 42.1292 52.2246 42.1292 48.5753C42.1292 44.9261 39.1709 41.9678 35.5216 41.9678C31.8724 41.9678 28.9141 44.9261 28.9141 48.5753C28.9141 52.2246 31.8724 55.1829 35.5216 55.1829Z"
+                    fill="#F5F5F5" />
+                <path
+                    d="M35.2181 49.4033C32.8715 49.4033 30.621 48.4711 28.9616 46.8118C27.3023 45.1524 26.3701 42.9019 26.3701 40.5553V35.2749C26.3701 35.0545 26.4577 34.8431 26.6135 34.6873C26.7694 34.5314 26.9808 34.4438 27.2012 34.4438C27.4216 34.4438 27.633 34.5314 27.7889 34.6873C27.9447 34.8431 28.0323 35.0545 28.0323 35.2749V40.5584C28.0339 42.4632 28.7911 44.2895 30.1377 45.6366C31.4843 46.9838 33.3102 47.7418 35.215 47.7443C35.3282 47.7373 35.4417 47.7536 35.5484 47.7921C35.6551 47.8306 35.7528 47.8906 35.8354 47.9683C35.9181 48.046 35.984 48.1398 36.029 48.2439C36.074 48.3481 36.0973 48.4603 36.0973 48.5738C36.0973 48.6872 36.074 48.7995 36.029 48.9036C35.984 49.0078 35.9181 49.1016 35.8354 49.1793C35.7528 49.257 35.6551 49.317 35.5484 49.3555C35.4417 49.394 35.3282 49.4103 35.215 49.4033H35.2181Z"
+                    fill="#E0E0E0" />
+                <path
+                    d="M19.8542 39.9264H34.5545C34.7896 39.9265 35.0215 39.8725 35.2325 39.7688C35.4435 39.665 35.6278 39.5142 35.7713 39.328C35.9148 39.1418 36.0136 38.9251 36.0601 38.6946C36.1067 38.4642 36.0997 38.2261 36.0397 37.9988L34.7599 33.1798C34.6735 32.8524 34.4813 32.5628 34.2133 32.3559C33.9453 32.149 33.6164 32.0365 33.2778 32.0359H21.1308C20.7918 32.0364 20.4625 32.1488 20.1939 32.3556C19.9254 32.5624 19.7326 32.8522 19.6456 33.1798L18.3816 37.9925C18.3201 38.2192 18.3115 38.4571 18.3566 38.6877C18.4016 38.9182 18.499 39.1354 18.6414 39.3223C18.7837 39.5092 18.9671 39.6609 19.1774 39.7657C19.3877 39.8704 19.6192 39.9254 19.8542 39.9264Z"
+                    fill="#F5F5F5" />
+                <path
+                    d="M129.649 55.1829C131.401 55.1829 133.082 54.4867 134.321 53.2476C135.56 52.0084 136.256 50.3278 136.256 48.5753C136.256 46.8229 135.56 45.1422 134.321 43.9031C133.082 42.6639 131.401 41.9678 129.649 41.9678H128.836V55.1829H129.649Z"
+                    fill="#E0E0E0" />
+                <path
+                    d="M128.836 55.1829C132.485 55.1829 135.444 52.2246 135.444 48.5753C135.444 44.9261 132.485 41.9678 128.836 41.9678C125.187 41.9678 122.229 44.9261 122.229 48.5753C122.229 52.2246 125.187 55.1829 128.836 55.1829Z"
+                    fill="#F5F5F5" />
+                <path
+                    d="M128.533 49.4033C126.186 49.4033 123.936 48.4711 122.277 46.8118C120.617 45.1524 119.685 42.9019 119.685 40.5553V35.2749C119.685 35.0545 119.773 34.8431 119.928 34.6873C120.084 34.5314 120.296 34.4438 120.516 34.4438C120.737 34.4438 120.948 34.5314 121.104 34.6873C121.26 34.8431 121.347 35.0545 121.347 35.2749V40.5584C121.349 42.4632 122.106 44.2895 123.453 45.6366C124.799 46.9838 126.625 47.7418 128.53 47.7443C128.643 47.7373 128.757 47.7536 128.863 47.7921C128.97 47.8306 129.068 47.8906 129.15 47.9683C129.233 48.046 129.299 48.1398 129.344 48.2439C129.389 48.3481 129.412 48.4603 129.412 48.5738C129.412 48.6872 129.389 48.7995 129.344 48.9036C129.299 49.0078 129.233 49.1016 129.15 49.1793C129.068 49.257 128.97 49.317 128.863 49.3555C128.757 49.394 128.643 49.4103 128.53 49.4033H128.533Z"
+                    fill="#E0E0E0" />
+                <path
+                    d="M113.169 39.9264H127.869C128.104 39.9265 128.336 39.8725 128.547 39.7688C128.758 39.665 128.943 39.5142 129.086 39.328C129.229 39.1418 129.328 38.9251 129.375 38.6946C129.421 38.4642 129.414 38.2262 129.354 37.9988L128.09 33.1862C128.004 32.8588 127.812 32.5691 127.544 32.3623C127.276 32.1554 126.947 32.0429 126.608 32.0422H114.446C114.107 32.0427 113.777 32.1551 113.509 32.3619C113.24 32.5688 113.047 32.8585 112.96 33.1862L111.696 37.9988C111.636 38.2252 111.628 38.4623 111.674 38.6921C111.719 38.9218 111.817 39.1381 111.959 39.3242C112.101 39.5104 112.284 39.6615 112.494 39.7658C112.704 39.8702 112.935 39.9252 113.169 39.9264Z"
+                    fill="#F5F5F5" />
+                <path d="M42.3377 99.8115H47.144V81.1897H42.3377V99.8115Z" fill="#E6E6E6" />
+                <path d="M29.3091 99.8084H45.2576L47.6655 78.0139H31.717L29.3091 99.8084Z" fill="#F0F0F0" />
+                <path d="M27.5806 99.8084H44.0568L46.4647 78.0139H29.9916L27.5806 99.8084Z" fill="#F5F5F5" />
+                <path d="M42.8653 98.0925L44.894 79.7329H31.1796L29.1509 98.0925H42.8653Z" fill="white" />
+                <path
+                    d="M40.034 93.64L40.132 92.9038C40.6407 88.2965 37.7651 84.1917 34.03 84.1917L33.9447 84.9406C33.4359 89.5447 36.3115 93.6495 40.0498 93.6495L40.034 93.64Z"
+                    fill="#F5F5F5" />
+                <path d="M18.6724 120.838H32.8418V99.8086H18.6724V120.838Z" fill="#E6E6E6" />
+                <path d="M20.0946 120.838H18.6694V116.784H21.5893L20.0946 120.838Z" fill="#F0F0F0" />
+                <path d="M58.3843 120.838H72.5537V99.8086H58.3843V120.838Z" fill="#E6E6E6" />
+                <path d="M18.6692 118.351H59.626V99.8116H18.6692V118.351Z" fill="#F0F0F0" />
+                <path d="M58.2007 120.838H59.6259V116.784H56.7061L58.2007 120.838Z" fill="#F0F0F0" />
+                <path d="M19.7753 108.451H58.52V100.968H19.7753V108.451Z" fill="#E6E6E6" />
+                <path
+                    d="M36.5644 105.86H41.731C42.8418 105.86 43.9411 105.634 44.9615 105.195C45.9819 104.756 46.902 104.114 47.6654 103.307H30.6299C31.3937 104.113 32.3139 104.755 33.3342 105.194C34.3545 105.633 35.4536 105.86 36.5644 105.86Z"
+                    fill="#F0F0F0" />
+                <path d="M19.7753 117.141H58.52V109.658H19.7753V117.141Z" fill="#E6E6E6" />
+                <path
+                    d="M36.5644 114.537H41.731C42.8418 114.538 43.9411 114.311 44.9615 113.872C45.9819 113.433 46.902 112.791 47.6654 111.984H30.6299C31.3937 112.79 32.3139 113.433 33.3342 113.872C34.3545 114.311 35.4536 114.537 36.5644 114.537Z"
+                    fill="#F0F0F0" />
+                <path
+                    d="M57.0318 98.952H57.3984C57.3984 98.1968 57.3984 96.285 57.4363 91.9021C57.5027 83.9547 57.6291 83.4712 57.6291 83.4712L56.7569 87.14C56.2039 91.2006 56.9181 95.2833 57.0318 98.952Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M56.3081 86.584C55.0441 85.0893 52.3739 84.6532 49.631 84.2803C48.5535 84.135 52.4592 86.5966 54.3711 88.3441C55.8563 89.7029 56.8043 90.0789 57.2151 91.4314C57.4236 89.744 57.3889 87.8827 56.3081 86.584Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M57.9736 89.2637C59.2376 87.769 61.9078 87.3361 64.6506 86.9632C65.7282 86.8178 61.8066 89.2795 59.9106 91.0269C58.4254 92.3857 57.4774 92.7618 57.0666 94.1143C56.8581 92.4268 56.8802 90.5529 57.9736 89.2637Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M57.4362 83.1078C58.3842 81.3192 60.7416 79.6318 63.3991 78.9998C64.4419 78.7502 60.9817 82.2988 59.6672 84.5898C58.6465 86.3658 57.294 88.4577 57.0823 89.9618C56.7663 86.9978 56.4945 84.9058 57.4362 83.1078Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M57.3227 99.8084C56.2041 99.8084 55.2782 99.2491 55.2118 98.5286L55.0254 97.3025H59.6232L59.4336 98.5286C59.3704 99.2491 58.4603 99.8084 57.3227 99.8084Z"
+                    fill="#F0F0F0" />
+                <path d="M59.92 97.7736H54.7281L54.5796 96.4053H60.0685L59.92 97.7736Z" fill="#F0F0F0" />
+                <path d="M53.5748 71.6433H104.201V25.4662L53.5748 25.4662L53.5748 71.6433Z" fill="#E6E6E6" />
+                <path d="M52.4372 71.6433H103.705V25.4662L52.4372 25.4662L52.4372 71.6433Z" fill="#F5F5F5" />
+                <path d="M101.657 69.5768V27.5361L54.4784 27.5361V69.5768H101.657Z" fill="#FAFAFA" />
+                <path d="M95.8711 69.5768L77.303 27.5361H70.9956L89.5638 69.5768H95.8711Z" fill="white" />
+                <path d="M87.7752 69.5768L69.2071 27.5361H64.8652L83.4334 69.5768H87.7752Z" fill="white" />
+                <path d="M71.9976 69.5736V27.533H69.558V69.5736H71.9976Z" fill="#E6E6E6" />
+                <path d="M88.2148 69.5736V27.533H85.7753V69.5736H88.2148Z" fill="#E6E6E6" />
+                <path d="M71.5581 70.8883V25.9973H68.474V70.8883H71.5581Z" fill="#F5F5F5" />
+                <path d="M87.7754 70.8883V25.9973H84.6913V70.8883H87.7754Z" fill="#F5F5F5" />
+                <path d="M54.6997 69.5768V27.5361H54.4817V69.5768H54.6997Z" fill="#E6E6E6" />
+                <path
+                    d="M51.5775 22.8057H106.422C106.493 22.8065 106.56 22.8347 106.609 22.8843C106.659 22.9339 106.687 23.001 106.688 23.0711C106.687 23.141 106.659 23.2077 106.609 23.2568C106.559 23.3059 106.492 23.3334 106.422 23.3334H51.5775C51.5076 23.3334 51.4406 23.3059 51.3909 23.2568C51.3412 23.2077 51.3128 23.141 51.312 23.0711C51.3128 23.001 51.3411 22.9339 51.3907 22.8843C51.4403 22.8347 51.5073 22.8065 51.5775 22.8057Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M104.201 24.5468C104.295 24.5459 104.385 24.5079 104.451 24.4411C104.518 24.3742 104.555 24.2838 104.555 24.1897V23.425C104.555 23.3782 104.546 23.3318 104.529 23.2885C104.511 23.2452 104.485 23.2058 104.452 23.1726C104.419 23.1394 104.38 23.1131 104.337 23.0951C104.294 23.0771 104.248 23.0679 104.201 23.0679C104.107 23.0679 104.016 23.1051 103.949 23.1713C103.883 23.2376 103.845 23.3276 103.844 23.4218V24.1865C103.844 24.2815 103.881 24.3727 103.948 24.4401C104.015 24.5076 104.106 24.5459 104.201 24.5468Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M55.5527 24.5468C55.6471 24.5459 55.7375 24.508 55.8042 24.4413C55.871 24.3745 55.9089 24.2841 55.9097 24.1897V23.425C55.9097 23.3302 55.8721 23.2394 55.8052 23.1725C55.7382 23.1055 55.6474 23.0679 55.5527 23.0679C55.4588 23.0679 55.3688 23.1052 55.3024 23.1715C55.236 23.2379 55.1987 23.3279 55.1987 23.4218V24.1865C55.1983 24.2334 55.2072 24.2799 55.2247 24.3234C55.2423 24.3669 55.2682 24.4065 55.3011 24.4399C55.334 24.4734 55.3731 24.5 55.4163 24.5184C55.4594 24.5367 55.5058 24.5463 55.5527 24.5468Z"
+                    fill="#E6E6E6" />
+                <path opacity="0.6" d="M51.6595 59.231L102.893 59.231V23.0679L51.6595 23.0679L51.6595 59.231Z"
+                    fill="#E0E0E0" />
+                <path
+                    d="M107.532 82.1504H98.6962C97.7572 82.1504 96.9961 82.9115 96.9961 83.8505V87.9395C96.9961 88.8784 97.7572 89.6396 98.6962 89.6396H107.532C108.47 89.6396 109.232 88.8784 109.232 87.9395V83.8505C109.232 82.9115 108.47 82.1504 107.532 82.1504Z"
+                    fill="#FAFAFA" />
+                <path
+                    d="M108.66 80.7664H97.5681C97.2522 80.7664 96.9961 81.0224 96.9961 81.3383V81.7997C96.9961 82.1156 97.2522 82.3716 97.5681 82.3716H108.66C108.976 82.3716 109.232 82.1156 109.232 81.7997V81.3383C109.232 81.0224 108.976 80.7664 108.66 80.7664Z"
+                    fill="#E6E6E6" />
+                <path
+                    d="M97.1763 97.96C97.1763 97.96 97.3374 103.228 103.474 103.228C109.611 103.228 109.772 97.96 109.772 97.96H97.1763Z"
+                    fill="#F0F0F0" />
+                <path
+                    d="M111.169 97.96C111.169 97.96 111.33 103.228 117.467 103.228C123.604 103.228 123.765 97.96 123.765 97.96H111.169Z"
+                    fill="#F0F0F0" />
+                <path
+                    d="M120.725 78.7598H108.59C107.299 78.7598 106.252 79.8067 106.252 81.0982V87.3044C106.252 88.5959 107.299 89.6428 108.59 89.6428H120.725C122.016 89.6428 123.063 88.5959 123.063 87.3044V81.0982C123.063 79.8067 122.016 78.7598 120.725 78.7598Z"
+                    fill="#F0F0F0" />
+                <path
+                    d="M122.279 76.8574H107.036C106.603 76.8574 106.252 77.2083 106.252 77.6411V78.2794C106.252 78.7122 106.603 79.0631 107.036 79.0631H122.279C122.712 79.0631 123.063 78.7122 123.063 78.2794V77.6411C123.063 77.2083 122.712 76.8574 122.279 76.8574Z"
+                    fill="#F5F5F5" />
+                <path d="M92.5534 120.838H94.146V94.7241H92.5534V120.838Z" fill="#E6E6E6" />
+                <path d="M138.541 89.6396H129.917V94.7209H138.541V89.6396Z" fill="#E6E6E6" />
+                <path d="M87.0392 94.7241H129.914V89.6428H87.0392V94.7241Z" fill="#F5F5F5" />
+                <path d="M138.541 103.212H129.917V108.293H138.541V103.212Z" fill="#E6E6E6" />
+                <path d="M87.0392 108.293H129.914V103.212H87.0392V108.293Z" fill="#F5F5F5" />
+                <path d="M135.428 120.838H137.021V94.7241H135.428V120.838Z" fill="#E6E6E6" />
+                <path d="M128.324 120.838H129.917V94.7241H128.324V120.838Z" fill="#F5F5F5" />
+                <path d="M87.0392 120.838H88.6318V94.7241H87.0392V120.838Z" fill="#F5F5F5" />
+                <path
+                    d="M78.9997 135.109C112.838 135.109 140.269 133.508 140.269 131.532C140.269 129.556 112.838 127.955 78.9997 127.955C45.1616 127.955 17.7305 129.556 17.7305 131.532C17.7305 133.508 45.1616 135.109 78.9997 135.109Z"
+                    fill="#F5F5F5" />
+                <path
+                    d="M82.2894 115.498H41.9773C41.3291 115.489 40.7083 115.235 40.2394 114.787C39.7705 114.339 39.4883 113.731 39.4493 113.084L35.8343 43.0738C35.8142 42.7624 35.8587 42.4502 35.965 42.1568C36.0712 41.8634 36.237 41.5951 36.4517 41.3688C36.6665 41.1424 36.9258 40.9628 37.2132 40.8414C37.5006 40.7199 37.8101 40.6591 38.1221 40.6628H78.4342C79.0822 40.6712 79.703 40.9244 80.1719 41.3717C80.6408 41.8189 80.9232 42.427 80.9622 43.0738L84.5709 113.084C84.5909 113.395 84.5466 113.706 84.4408 114C84.3349 114.293 84.1698 114.561 83.9557 114.787C83.7417 115.014 83.4832 115.194 83.1966 115.316C82.9099 115.438 82.6011 115.5 82.2894 115.498Z"
+                    fill="#333D5F" />
+                <path opacity="0.8"
+                    d="M82.2894 115.498H41.9773C41.3291 115.489 40.7083 115.235 40.2394 114.787C39.7705 114.339 39.4883 113.731 39.4493 113.084L35.8343 43.0738C35.8142 42.7624 35.8587 42.4502 35.965 42.1568C36.0712 41.8634 36.237 41.5951 36.4517 41.3688C36.6665 41.1424 36.9258 40.9628 37.2132 40.8414C37.5006 40.7199 37.8101 40.6591 38.1221 40.6628H78.4342C79.0822 40.6712 79.703 40.9244 80.1719 41.3717C80.6408 41.8189 80.9232 42.427 80.9622 43.0738L84.5709 113.084C84.5909 113.395 84.5466 113.706 84.4408 114C84.3349 114.293 84.1698 114.561 83.9557 114.787C83.7417 115.014 83.4832 115.194 83.1966 115.316C82.9099 115.438 82.6011 115.5 82.2894 115.498Z"
+                    fill="white" />
+                <path d="M74.4558 38.3813H69.9971V38.6973H74.4558V38.3813Z" fill="#333D5F" />
+                <path d="M68.4521 38.3813H66.8184V38.6973H68.4521V38.3813Z" fill="#333D5F" />
+                <path
+                    d="M84.0244 111.055H45.4724C44.8516 111.049 44.2561 110.808 43.8058 110.381C43.3555 109.953 43.0839 109.371 43.0455 108.751L39.5948 41.7911C39.5756 41.4931 39.6182 41.1943 39.72 40.9135C39.8217 40.6327 39.9803 40.376 40.1859 40.1594C40.3915 39.9428 40.6397 39.7711 40.9148 39.6549C41.1899 39.5387 41.4861 39.4806 41.7847 39.4843H80.3367C80.9575 39.4911 81.5526 39.7329 82.0023 40.1609C82.452 40.5889 82.7229 41.1714 82.7604 41.7911L86.2111 108.751C86.2303 109.049 86.1878 109.347 86.0862 109.628C85.9847 109.908 85.8263 110.165 85.6209 110.381C85.4156 110.597 85.1678 110.769 84.8931 110.885C84.6184 111.001 84.3226 111.059 84.0244 111.055Z"
+                    fill="#333D5F" />
+                <path
+                    d="M84.0242 109.516H45.4722C45.2461 109.508 45.0307 109.418 44.867 109.262C44.7033 109.106 44.6027 108.895 44.5842 108.669L41.1304 41.712C41.1225 41.6229 41.1337 41.5332 41.1631 41.4488C41.1925 41.3644 41.2395 41.2871 41.301 41.2222C41.3626 41.1574 41.4373 41.1065 41.5201 41.0727C41.6029 41.0389 41.6919 41.0231 41.7813 41.0263H80.3333C80.5588 41.0348 80.7734 41.1257 80.9365 41.2818C81.0995 41.4378 81.1997 41.6482 81.2181 41.8732L84.6878 108.83C84.6954 108.919 84.6842 109.008 84.6548 109.093C84.6255 109.177 84.5787 109.254 84.5175 109.318C84.4564 109.383 84.3822 109.434 84.2999 109.468C84.2176 109.502 84.129 109.519 84.04 109.516H84.0242ZM41.7813 41.1053C41.7027 41.1027 41.6245 41.1166 41.5516 41.146C41.4787 41.1754 41.4127 41.2196 41.3579 41.2759C41.3051 41.3343 41.2648 41.4027 41.2392 41.4771C41.2137 41.5516 41.2035 41.6304 41.2094 41.7088L44.6601 108.666C44.6777 108.871 44.7696 109.063 44.9186 109.205C45.0676 109.347 45.2633 109.429 45.469 109.437H84.021C84.0992 109.44 84.1771 109.427 84.2496 109.397C84.3221 109.368 84.3874 109.323 84.4413 109.266C84.4954 109.209 84.5366 109.141 84.5622 109.066C84.5878 108.991 84.5972 108.912 84.5898 108.834L81.1423 41.8763C81.1254 41.6715 81.0341 41.48 80.8857 41.3379C80.7372 41.1958 80.5418 41.1131 80.3365 41.1053H41.7813Z"
+                    fill="white" />
+                <path opacity="0.3"
+                    d="M70.5393 65.4296C74.9242 60.93 74.6386 53.5401 69.9015 48.9239C65.1645 44.3076 57.7697 44.213 53.3848 48.7126C48.9999 53.2122 49.2855 60.6021 54.0226 65.2184C58.7597 69.8347 66.1545 69.9292 70.5393 65.4296Z"
+                    fill="white" />
+                <path
+                    d="M71.4159 57.0727C71.5043 58.6256 71.192 60.1752 70.509 61.5726C69.7696 63.0714 68.6218 64.3309 67.1978 65.2058C65.7738 66.0808 64.1317 66.5356 62.4605 66.518C60.7286 66.5024 59.0302 66.0387 57.5306 65.1721C56.0311 64.3055 54.7814 63.0654 53.9032 61.5726C53.0847 60.2074 52.6138 58.6623 52.5317 57.0727C52.4538 55.8537 52.6284 54.6317 53.0444 53.4832C53.4605 52.3347 54.1091 51.2844 54.9497 50.3981C55.7904 49.5118 56.8049 48.8086 57.9298 48.3324C59.0546 47.8562 60.2657 47.6173 61.4872 47.6307C64.0294 47.6572 66.4672 48.646 68.3095 50.398C70.1518 52.15 71.2618 54.535 71.4159 57.0727Z"
+                    fill="white" />
+                <path
+                    d="M70.4994 61.5726C69.76 63.0714 68.6122 64.3309 67.1882 65.2058C65.7642 66.0808 64.122 66.5356 62.4508 66.518C60.7189 66.5024 59.0206 66.0387 57.521 65.1721C56.0214 64.3054 54.7717 63.0654 53.8936 61.5726C56.2949 59.9142 59.147 59.0318 62.0653 59.0446C65.0617 59.0559 67.9908 59.9338 70.4994 61.5726Z"
+                    fill="#333D5F" />
+                <path
+                    d="M64.8895 56.8531C66.4693 55.232 66.3658 52.569 64.6585 50.9052C62.9511 49.2414 60.2864 49.2068 58.7066 50.8279C57.1268 52.449 57.2303 55.112 58.9376 56.7758C60.645 58.4396 63.3097 58.4742 64.8895 56.8531Z"
+                    fill="#333D5F" />
+                <path
+                    d="M78.4975 85.0039H48.31C48.0471 85.0012 47.7949 84.899 47.6044 84.7178C47.4138 84.5366 47.299 84.2899 47.283 84.0275L47.0555 79.6035C47.0476 79.4776 47.0659 79.3515 47.109 79.233C47.1521 79.1146 47.2192 79.0063 47.3062 78.9149C47.3931 78.8235 47.4979 78.7511 47.6141 78.7021C47.7302 78.6531 47.8553 78.6286 47.9814 78.6302H78.1688C78.4313 78.6329 78.683 78.7347 78.8735 78.9152C79.0639 79.0957 79.1791 79.3416 79.1958 79.6035L79.4234 84.0275C79.4317 84.1536 79.4138 84.28 79.3708 84.3989C79.3279 84.5177 79.2609 84.6264 79.1739 84.7181C79.087 84.8098 78.982 84.8826 78.8656 84.9317C78.7492 84.9809 78.6238 85.0055 78.4975 85.0039Z"
+                    fill="white" />
+                <path opacity="0.3"
+                    d="M69.2543 76.1876H56.6459C56.3819 76.1856 56.1286 76.0833 55.9373 75.9013C55.746 75.7194 55.631 75.4715 55.6158 75.208L55.5684 74.26C55.5601 74.1339 55.578 74.0074 55.6209 73.8885C55.6638 73.7697 55.7309 73.661 55.8178 73.5693C55.9048 73.4776 56.0098 73.4049 56.1262 73.3557C56.2426 73.3065 56.3679 73.2819 56.4943 73.2835H69.0995C69.3624 73.2862 69.6146 73.3885 69.8051 73.5697C69.9957 73.7508 70.1105 73.9975 70.1265 74.26L70.177 75.208C70.1848 75.3338 70.1667 75.46 70.1238 75.5786C70.081 75.6972 70.0142 75.8057 69.9277 75.8975C69.8413 75.9893 69.7369 76.0624 69.6211 76.1123C69.5053 76.1622 69.3804 76.1878 69.2543 76.1876Z"
+                    fill="black" />
+                <path opacity="0.3"
+                    d="M73.9438 106.274H55.0565C54.6093 106.268 54.1806 106.094 53.8566 105.786C53.5325 105.478 53.3369 105.058 53.309 104.612L53.1984 102.431C53.1873 102.217 53.2199 102.003 53.2943 101.802C53.3687 101.6 53.4833 101.416 53.6311 101.261C53.779 101.105 53.9569 100.981 54.1542 100.897C54.3514 100.812 54.5638 100.769 54.7784 100.769H73.6594C74.1067 100.775 74.5353 100.949 74.8594 101.257C75.1835 101.566 75.379 101.985 75.4069 102.431L75.5175 104.612C75.5286 104.826 75.4962 105.039 75.4222 105.24C75.3482 105.441 75.2342 105.625 75.087 105.78C74.9398 105.936 74.7626 106.06 74.5661 106.145C74.3696 106.229 74.1579 106.273 73.9438 106.274Z"
+                    fill="black" />
+                <path
+                    d="M79.0504 95.7038H48.8598C48.5971 95.7004 48.3454 95.5979 48.155 95.4169C47.9646 95.2358 47.8495 94.9896 47.8328 94.7274L47.6053 90.3034C47.5975 90.1774 47.6157 90.0511 47.6588 89.9325C47.7019 89.8139 47.7689 89.7054 47.8558 89.6138C47.9427 89.5221 48.0474 89.4494 48.1636 89.4001C48.2798 89.3507 48.4049 89.3258 48.5312 89.3269H78.7186C78.9816 89.3297 79.2337 89.4319 79.4243 89.6131C79.6148 89.7943 79.7297 90.0409 79.7456 90.3034L79.9763 94.7274C79.9837 94.8533 79.9651 94.9793 79.9219 95.0978C79.8786 95.2162 79.8115 95.3245 79.7247 95.416C79.638 95.5075 79.5334 95.5803 79.4174 95.6298C79.3014 95.6793 79.1765 95.7045 79.0504 95.7038Z"
+                    fill="white" />
+                <path
+                    d="M52.1397 81.8156C52.1484 81.9553 52.1282 82.0952 52.0804 82.2267C52.0325 82.3582 51.9581 82.4784 51.8617 82.5798C51.7653 82.6813 51.6491 82.7617 51.5202 82.8162C51.3913 82.8706 51.2526 82.8979 51.1127 82.8964C50.822 82.8929 50.5435 82.7795 50.333 82.579C50.1225 82.3785 49.9958 82.1058 49.9783 81.8156C49.9691 81.6762 49.9889 81.5363 50.0363 81.4048C50.0838 81.2733 50.1579 81.1531 50.2541 81.0516C50.3502 80.9501 50.4663 80.8696 50.595 80.8151C50.7237 80.7606 50.8623 80.7333 51.0021 80.7349C51.2931 80.7383 51.572 80.8516 51.783 81.052C51.994 81.2525 52.1214 81.5252 52.1397 81.8156Z"
+                    fill="#263238" />
+                <path
+                    d="M55.4676 81.8156C55.4767 81.9551 55.457 82.095 55.4095 82.2265C55.362 82.358 55.2879 82.4782 55.1918 82.5797C55.0957 82.6812 54.9796 82.7617 54.8509 82.8162C54.7221 82.8707 54.5835 82.898 54.4437 82.8964C54.1529 82.8936 53.8739 82.7805 53.6633 82.5799C53.4526 82.3792 53.3261 82.1061 53.3093 81.8156C53.3002 81.6762 53.3199 81.5363 53.3674 81.4048C53.4149 81.2733 53.489 81.1531 53.5851 81.0516C53.6812 80.9501 53.7973 80.8696 53.926 80.8151C54.0548 80.7606 54.1934 80.7333 54.3332 80.7349C54.624 80.7376 54.903 80.8508 55.1136 81.0514C55.3243 81.2521 55.4508 81.5252 55.4676 81.8156Z"
+                    fill="#263238" />
+                <path
+                    d="M58.7757 81.8156C58.7849 81.9551 58.7651 82.095 58.7176 82.2265C58.6702 82.358 58.596 82.4782 58.4999 82.5797C58.4038 82.6812 58.2877 82.7617 58.159 82.8162C58.0302 82.8707 57.8916 82.898 57.7519 82.8963C57.4609 82.8929 57.182 82.7797 56.971 82.5793C56.76 82.3788 56.6326 82.1061 56.6143 81.8156C56.6056 81.676 56.6258 81.5361 56.6736 81.4046C56.7214 81.2731 56.7958 81.1529 56.8922 81.0515C56.9886 80.95 57.1049 80.8696 57.2338 80.8151C57.3626 80.7606 57.5014 80.7334 57.6413 80.7349C57.9319 80.7384 58.2105 80.8518 58.421 81.0523C58.6314 81.2528 58.7582 81.5255 58.7757 81.8156Z"
+                    fill="#263238" />
+                <path
+                    d="M62.1097 81.8156C62.1184 81.955 62.0983 82.0947 62.0506 82.2259C62.003 82.3572 61.9289 82.4773 61.8328 82.5786C61.7368 82.68 61.6209 82.7605 61.4924 82.8152C61.3639 82.8699 61.2255 82.8975 61.0859 82.8963C60.7949 82.8929 60.5159 82.7797 60.305 82.5792C60.094 82.3788 59.9666 82.106 59.9483 81.8156C59.9396 81.6762 59.9597 81.5366 60.0073 81.4053C60.0549 81.274 60.1291 81.154 60.2251 81.0526C60.3212 80.9512 60.4371 80.8707 60.5656 80.816C60.6941 80.7614 60.8324 80.7338 60.9721 80.7349C61.2631 80.7383 61.542 80.8516 61.753 81.052C61.964 81.2524 62.0914 81.5252 62.1097 81.8156Z"
+                    fill="#263238" />
+                <path
+                    d="M52.6991 92.509C52.7082 92.6485 52.6884 92.7884 52.641 92.9199C52.5935 93.0513 52.5194 93.1716 52.4232 93.2731C52.3271 93.3745 52.211 93.4551 52.0823 93.5096C51.9536 93.564 51.815 93.5914 51.6752 93.5897C51.3842 93.5863 51.1053 93.4731 50.8943 93.2726C50.6833 93.0722 50.5559 92.7994 50.5376 92.509C50.5289 92.3694 50.5491 92.2294 50.5969 92.0979C50.6448 91.9665 50.7192 91.8462 50.8156 91.7448C50.912 91.6434 51.0282 91.5629 51.1571 91.5085C51.286 91.454 51.4247 91.4267 51.5646 91.4283C51.8553 91.4317 52.1338 91.5451 52.3443 91.7456C52.5548 91.9461 52.6815 92.2189 52.6991 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M56.0205 92.509C56.0292 92.6484 56.0091 92.7881 55.9615 92.9194C55.9138 93.0506 55.8397 93.1707 55.7437 93.2721C55.6476 93.3734 55.5317 93.454 55.4032 93.5086C55.2747 93.5633 55.1363 93.5909 54.9967 93.5898C54.7057 93.5864 54.4268 93.4731 54.2158 93.2727C54.0048 93.0722 53.8774 92.7995 53.8591 92.509C53.85 92.3695 53.8697 92.2297 53.9172 92.0982C53.9647 91.9667 54.0388 91.8464 54.1349 91.745C54.2311 91.6435 54.3471 91.563 54.4758 91.5085C54.6046 91.454 54.7432 91.4267 54.8829 91.4283C55.1739 91.4317 55.4529 91.545 55.6638 91.7454C55.8748 91.9458 56.0022 92.2186 56.0205 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M59.3414 92.509C59.35 92.6487 59.3299 92.7886 59.282 92.9201C59.2342 93.0516 59.1598 93.1718 59.0634 93.2732C58.967 93.3746 58.8507 93.4551 58.7219 93.5096C58.593 93.564 58.4543 93.5913 58.3144 93.5897C58.0235 93.587 57.7445 93.4739 57.5339 93.2732C57.3232 93.0726 57.1967 92.7994 57.1799 92.509C57.1708 92.3695 57.1905 92.2297 57.238 92.0982C57.2855 91.9667 57.3596 91.8464 57.4557 91.745C57.5519 91.6435 57.6679 91.563 57.7967 91.5085C57.9254 91.454 58.064 91.4267 58.2038 91.4283C58.4947 91.4317 58.7737 91.545 58.9846 91.7454C59.1956 91.9458 59.323 92.2186 59.3414 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M62.6595 92.509C62.6687 92.6485 62.6489 92.7884 62.6014 92.9199C62.554 93.0513 62.4798 93.1716 62.3837 93.2731C62.2876 93.3745 62.1715 93.4551 62.0428 93.5096C61.914 93.564 61.7754 93.5914 61.6357 93.5897C61.3447 93.5863 61.0657 93.4731 60.8548 93.2726C60.6438 93.0722 60.5164 92.7994 60.4981 92.509C60.4894 92.3694 60.5096 92.2294 60.5574 92.0979C60.6052 91.9665 60.6796 91.8462 60.776 91.7448C60.8724 91.6434 60.9887 91.5629 61.1176 91.5085C61.2464 91.454 61.3852 91.4267 61.5251 91.4283C61.8159 91.431 62.0949 91.5441 62.3056 91.7448C62.5162 91.9454 62.6427 92.2186 62.6595 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M65.9808 92.509C65.9899 92.6485 65.9702 92.7883 65.9227 92.9198C65.8752 93.0513 65.8011 93.1716 65.705 93.273C65.6089 93.3745 65.4928 93.455 65.3641 93.5095C65.2353 93.564 65.0967 93.5913 64.9569 93.5897C64.666 93.5863 64.387 93.473 64.1761 93.2726C63.9651 93.0722 63.8377 92.7994 63.8193 92.509C63.8107 92.3696 63.8308 92.2299 63.8784 92.0987C63.926 91.9674 64.0002 91.8473 64.0962 91.746C64.1923 91.6446 64.3082 91.5641 64.4367 91.5094C64.5652 91.4547 64.7035 91.4271 64.8432 91.4283C65.1342 91.4317 65.4131 91.5449 65.6241 91.7454C65.8351 91.9458 65.9625 92.2186 65.9808 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M69.3018 92.509C69.3105 92.6487 69.2903 92.7886 69.2425 92.9201C69.1947 93.0516 69.1202 93.1718 69.0238 93.2732C68.9275 93.3746 68.8112 93.4551 68.6823 93.5096C68.5534 93.564 68.4147 93.5913 68.2748 93.5897C67.9841 93.5863 67.7056 93.4729 67.4951 93.2724C67.2847 93.0719 67.1579 92.7992 67.1404 92.509C67.1312 92.3695 67.151 92.2297 67.1984 92.0982C67.2459 91.9667 67.32 91.8464 67.4162 91.745C67.5123 91.6435 67.6284 91.563 67.7571 91.5085C67.8858 91.454 68.0244 91.4267 68.1642 91.4283C68.4552 91.4317 68.7341 91.545 68.9451 91.7454C69.1561 91.9458 69.2835 92.2186 69.3018 92.509Z"
+                    fill="#263238" />
+                <path
+                    d="M105.228 55.812C105.307 55.9321 105.348 55.9953 105.398 56.0806L105.541 56.3145C105.632 56.4725 105.714 56.6305 105.793 56.7853C105.951 57.1013 106.109 57.4173 106.236 57.7333C106.501 58.3609 106.729 59.0035 106.918 59.6577C107.301 60.9501 107.553 62.2777 107.67 63.6204L107.693 63.87C107.695 63.9205 107.695 63.9712 107.693 64.0217V64.1892C107.698 64.4089 107.685 64.6288 107.655 64.8465C107.594 65.25 107.488 65.6454 107.339 66.0251C107.061 66.7034 106.693 67.3411 106.245 67.9211C105.41 68.9912 104.418 69.9297 103.303 70.7051L102.431 69.6844C103.225 68.7881 103.928 67.8153 104.529 66.7804C104.8 66.3109 105.012 65.81 105.161 65.2889C105.222 65.0681 105.257 64.8413 105.266 64.6126C105.275 64.5149 105.275 64.4165 105.266 64.3187V64.2524C105.269 64.223 105.269 64.1933 105.266 64.1639L105.228 63.9427C105.025 62.765 104.737 61.6034 104.368 60.4667C104.185 59.9011 103.961 59.3544 103.736 58.8203C103.626 58.5517 103.499 58.2895 103.373 58.0367L103.177 57.6638L103.079 57.49L102.997 57.3509L105.228 55.812Z"
+                    fill="#803E3C" />
+                <path
+                    d="M102.289 70.7114L103.433 73.1288L104.34 71.0843C104.34 71.0843 103.534 69.3147 102.444 69.479L102.289 70.7114Z"
+                    fill="#7F3E3B" />
+                <path d="M104.252 73.2488L105.162 71.7573L104.34 71.0842L103.433 73.1288L104.252 73.2488Z"
+                    fill="#7F3E3B" />
+                <path
+                    d="M99.1072 128.998C99.3438 128.992 99.5791 128.96 99.8088 128.903C99.8204 128.899 99.8309 128.893 99.8392 128.884C99.8475 128.875 99.8534 128.864 99.8562 128.852C99.8581 128.84 99.8564 128.828 99.8514 128.816C99.8463 128.805 99.8381 128.796 99.8277 128.789C99.7361 128.729 98.9334 128.211 98.6238 128.35C98.5894 128.366 98.56 128.391 98.5383 128.422C98.5167 128.453 98.5036 128.489 98.5005 128.527C98.4909 128.584 98.4954 128.643 98.5136 128.698C98.5318 128.753 98.5631 128.802 98.6048 128.843C98.7481 128.953 98.9265 129.008 99.1072 128.998ZM99.6286 128.811C99.1704 128.906 98.8228 128.89 98.6806 128.767C98.6516 128.738 98.6303 128.702 98.6187 128.663C98.6071 128.624 98.6056 128.582 98.6143 128.543C98.6143 128.489 98.6459 128.473 98.668 128.464C98.8386 128.388 99.3032 128.612 99.6286 128.811Z"
+                    fill="#333D5F" />
+                <path
+                    d="M99.7928 128.903H99.8244C99.8339 128.897 99.8418 128.888 99.8473 128.878C99.8528 128.868 99.8558 128.857 99.856 128.846C99.856 128.814 99.856 128.053 99.5653 127.797C99.5296 127.765 99.4874 127.741 99.4416 127.727C99.3958 127.712 99.3474 127.708 99.2999 127.715C99.25 127.715 99.2018 127.732 99.1633 127.764C99.1248 127.796 99.0983 127.84 99.0882 127.888C99.0281 128.189 99.5084 128.757 99.7612 128.903H99.7928ZM99.3409 127.831C99.3665 127.831 99.392 127.835 99.4159 127.844C99.4397 127.854 99.4615 127.867 99.48 127.885C99.6467 128.131 99.7328 128.423 99.7265 128.719C99.4737 128.517 99.1735 128.087 99.2114 127.907C99.2114 127.879 99.2335 127.841 99.3125 127.831H99.3409Z"
+                    fill="#333D5F" />
+                <path
+                    d="M96.1239 127.708C96.1313 127.699 96.1361 127.688 96.1378 127.676C96.1395 127.664 96.138 127.652 96.1335 127.642C96.1289 127.631 96.1216 127.621 96.1121 127.614C96.1026 127.607 96.0914 127.602 96.0796 127.601C95.9501 127.601 94.8156 127.547 94.5565 127.825V127.844C94.5351 127.872 94.5212 127.904 94.5162 127.938C94.5112 127.973 94.5153 128.008 94.5281 128.04C94.545 128.094 94.5748 128.144 94.615 128.184C94.6552 128.224 94.7045 128.254 94.7588 128.271C95.1253 128.385 95.7731 127.971 96.127 127.715L96.1239 127.708ZM94.6513 127.907C94.7935 127.756 95.4192 127.715 95.8869 127.721C95.3971 128.056 94.9894 128.214 94.784 128.151C94.7482 128.14 94.7157 128.12 94.6892 128.094C94.6627 128.067 94.6432 128.035 94.6324 127.999C94.626 127.987 94.6227 127.973 94.6227 127.96C94.6227 127.946 94.626 127.932 94.6324 127.92L94.6513 127.907Z"
+                    fill="#333D5F" />
+                <path
+                    d="M96.1241 127.708C96.1289 127.698 96.1313 127.688 96.1313 127.677C96.1313 127.666 96.1289 127.655 96.1241 127.645C96.1083 127.62 95.7544 127.013 95.3373 126.887C95.2774 126.869 95.2145 126.864 95.1526 126.872C95.0906 126.879 95.0309 126.899 94.977 126.931C94.8253 127.019 94.8159 127.124 94.8348 127.19C94.917 127.484 95.7228 127.743 96.0704 127.74C96.0813 127.74 96.092 127.737 96.1014 127.731C96.1108 127.726 96.1187 127.718 96.1241 127.708ZM94.9897 127.076C95.0075 127.059 95.0277 127.044 95.0497 127.032C95.0887 127.007 95.1327 126.991 95.1786 126.985C95.2244 126.979 95.2711 126.983 95.3152 126.997C95.5901 127.07 95.846 127.424 95.963 127.598C95.5869 127.557 95.0149 127.326 94.9675 127.149C94.9635 127.135 94.9635 127.121 94.9674 127.108C94.9713 127.094 94.9791 127.082 94.9897 127.073V127.076Z"
+                    fill="#333D5F" />
+                <path
+                    d="M99.6031 46.5564C99.2871 48.1364 98.6046 51.5524 99.7011 52.6015C99.7011 52.6015 99.2713 54.1815 96.3547 54.1815C93.1441 54.1815 94.8221 52.6015 94.8221 52.6015C96.5727 52.1844 96.5284 50.8824 96.2219 49.6627L99.6031 46.5564Z"
+                    fill="#7F3E3B" />
+                <path
+                    d="M94.2566 42.8529C94.2744 42.8558 94.2925 42.8558 94.3103 42.8529C94.3253 42.8455 94.3387 42.8352 94.3497 42.8226C94.3607 42.81 94.3691 42.7953 94.3744 42.7794C94.3797 42.7636 94.3818 42.7468 94.3806 42.7301C94.3793 42.7134 94.3748 42.6971 94.3672 42.6822C94.2822 42.502 94.1552 42.3447 93.9969 42.2238C93.8385 42.1028 93.6534 42.0216 93.4571 41.987C93.4242 41.9843 93.3915 41.9942 93.3657 42.0147C93.3398 42.0353 93.3228 42.0649 93.3181 42.0976C93.3145 42.1307 93.3242 42.1638 93.3449 42.1899C93.3656 42.2159 93.3957 42.2327 93.4287 42.2367C93.5836 42.2664 93.7292 42.3327 93.8534 42.4299C93.9776 42.5272 94.0769 42.6527 94.1429 42.796C94.1551 42.8147 94.1721 42.8298 94.1921 42.8398C94.212 42.8498 94.2343 42.8543 94.2566 42.8529Z"
+                    fill="#263238" />
+                <path
+                    d="M93.2992 44.24C93.0504 44.7013 92.74 45.1265 92.3765 45.504C92.4749 45.594 92.5917 45.6616 92.7189 45.702C92.846 45.7424 92.9804 45.7546 93.1127 45.7378L93.2992 44.24Z"
+                    fill="#630F0F" />
+                <path
+                    d="M93.5358 43.8831C93.5106 44.0948 93.3747 44.2528 93.2388 44.237C93.1029 44.2212 93.0081 44.0347 93.0334 43.823C93.0587 43.6113 93.1945 43.4533 93.3494 43.4691C93.5042 43.4849 93.558 43.6713 93.5358 43.8831Z"
+                    fill="#263238" />
+                <path d="M93.3904 43.4879L92.9038 43.292C92.9038 43.292 93.1092 43.7091 93.3904 43.4879Z"
+                    fill="#263238" />
+                <path d="M98.9145 127.108L96.3359 127.708L94.7686 121.78L97.3471 121.18L98.9145 127.108Z"
+                    fill="#7F3E3B" />
+                <path d="M102.87 128.84H100.226L100.431 122.712H103.079L102.87 128.84Z" fill="#7F3E3B" />
+                <path
+                    d="M100.014 128.533H102.988C103.039 128.533 103.089 128.551 103.128 128.585C103.167 128.619 103.193 128.665 103.2 128.716L103.538 131.068C103.544 131.127 103.538 131.187 103.52 131.244C103.502 131.301 103.472 131.354 103.432 131.398C103.392 131.443 103.343 131.478 103.288 131.502C103.233 131.526 103.174 131.539 103.114 131.538C102.078 131.523 101.578 131.459 100.27 131.459C99.4644 131.459 98.2889 131.545 97.1797 131.545C96.0705 131.545 96.0073 130.445 96.4719 130.347C98.5448 129.898 98.8735 129.285 99.5718 128.698C99.6952 128.592 99.852 128.534 100.014 128.533Z"
+                    fill="#263238" />
+                <path
+                    d="M96.1082 127.313L98.81 126.072C98.8559 126.05 98.9082 126.045 98.9571 126.059C99.006 126.073 99.0481 126.105 99.0755 126.147L100.368 128.145C100.398 128.196 100.417 128.253 100.424 128.312C100.431 128.372 100.425 128.432 100.407 128.488C100.389 128.545 100.36 128.598 100.32 128.642C100.281 128.687 100.232 128.723 100.178 128.748C99.2303 129.165 98.75 129.32 97.5618 129.867C96.8319 130.202 95.3498 130.973 94.3449 131.447C93.3401 131.921 92.8218 130.938 93.201 130.654C94.8979 129.39 95.3846 128.483 95.7733 127.658C95.839 127.506 95.9582 127.383 96.1082 127.313Z"
+                    fill="#263238" />
+                <path opacity="0.2" d="M94.7686 121.78L95.6091 124.959L98.1561 124.235L97.3503 121.18L94.7686 121.78Z"
+                    fill="black" />
+                <path opacity="0.2" d="M103.079 122.712H100.431L100.327 125.872H102.975L103.079 122.712Z"
+                    fill="black" />
+                <path
+                    d="M104.28 53.2019C105.379 53.4453 106.555 57.3984 106.555 57.3984L103.445 60.707C103.445 60.707 100.864 56.9908 101.391 55.6257C101.925 54.2005 102.968 52.9175 104.28 53.2019Z"
+                    fill="#263238" />
+                <path opacity="0.4"
+                    d="M102.523 55.7205C101.967 55.2117 101.591 55.3634 101.335 55.7679C101.082 56.9434 102.58 59.405 103.183 60.3372C103.461 59.2249 103.78 56.8802 102.523 55.7205Z"
+                    fill="black" />
+                <path
+                    d="M90.3473 53.2809C90.3473 53.2809 89.0832 53.7233 91.6113 69.2547H102.355C102.175 64.8812 102.169 62.1826 104.251 53.2019C102.746 52.8912 101.22 52.6906 99.685 52.6015C98.0608 52.4844 96.4302 52.4844 94.806 52.6015C92.7236 52.7942 90.3473 53.2809 90.3473 53.2809Z"
+                    fill="#263238" />
+                <path opacity="0.4"
+                    d="M90.2495 59.2407C90.319 59.9959 90.4107 60.8459 90.5307 61.8066C91.4124 61.0134 92.1329 58.7572 91.8674 57.4426C91.2376 57.9538 90.6917 58.5605 90.2495 59.2407Z"
+                    fill="black" />
+                <path
+                    d="M91.3999 56.8801C90.8201 58.3392 90.1673 59.7683 89.4438 61.1619C88.7287 62.6057 87.8825 63.9808 86.9158 65.2699L86.7136 65.5195L86.6125 65.6427C86.5777 65.6838 86.5493 65.7217 86.4956 65.7786C86.3054 65.9861 86.0935 66.1725 85.8636 66.3348C85.4571 66.6161 85.0122 66.8375 84.5427 66.9921C83.7238 67.2536 82.8736 67.4045 82.0147 67.4408C80.4061 67.5047 78.7961 67.3613 77.2241 67.0142L77.3979 65.687C78.1247 65.687 78.8863 65.687 79.6099 65.6269C80.3367 65.5912 81.0607 65.511 81.7777 65.3868C82.4436 65.2829 83.0949 65.1004 83.7179 64.8432C83.9695 64.7358 84.2047 64.5932 84.4163 64.4198C84.497 64.3522 84.5702 64.2759 84.6343 64.1923C84.6343 64.1923 84.6722 64.1417 84.6975 64.107L84.7702 64.0027L84.9187 63.7941C85.7117 62.5693 86.4181 61.2906 87.0328 59.9674C87.6648 58.6244 88.2968 57.2308 88.875 55.8594L91.3999 56.8801Z"
+                    fill="#803E3C" />
+                <path
+                    d="M90.3473 53.2808C89.0295 53.5968 87.4116 57.2119 87.4116 57.2119L90.1419 61.2251C90.1419 61.2251 93.779 56.6462 93.3461 55.2495C92.9037 53.7928 91.9557 52.889 90.3473 53.2808Z"
+                    fill="#263238" />
+                <path
+                    d="M78.1563 65.8892L75.8779 64.8369L75.6504 67.1026C75.6504 67.1026 77.5464 67.662 78.4944 67.1026L78.1563 65.8892Z"
+                    fill="#7F3E3B" />
+                <path d="M74.5159 64.6094L74.2979 66.3347L75.6503 67.1026L75.8778 64.8369L74.5159 64.6094Z"
+                    fill="#7F3E3B" />
+                <path
+                    d="M100.747 44.0377C100.264 46.6195 100.115 47.7255 98.6364 48.8978C96.4244 50.6611 93.3434 49.5045 93.0464 46.8312C92.7746 44.4233 93.6088 40.606 96.2854 39.8792C96.8749 39.7165 97.4964 39.7076 98.0904 39.8533C98.6844 39.999 99.2312 40.2944 99.6786 40.7114C100.126 41.1284 100.459 41.6531 100.646 42.2354C100.833 42.8177 100.868 43.4382 100.747 44.0377Z"
+                    fill="#7F3E3B" />
+                <path
+                    d="M95.0751 44.5815C94.9266 45.8992 94.8697 49.3215 97.7643 49.4289C101.307 49.5585 102.368 46.5312 102.052 45.3209C103.898 43.8199 104.163 41.2382 102.09 39.2632C100.017 37.2882 95.4543 38.391 94.1903 40.3155C92.5882 42.7013 95.0751 44.5815 95.0751 44.5815Z"
+                    fill="#263238" />
+                <path
+                    d="M98.6238 40.031C98.4532 38.6406 98.5859 37.6831 99.8878 37.6831C101.19 37.6831 102.966 38.1539 103.617 39.4843C104.268 40.8147 104.321 42.8971 102.504 42.6854C100.687 42.4737 98.8292 41.6931 98.6238 40.031Z"
+                    fill="#333D5F" />
+                <path
+                    d="M100.64 39.696C100.324 38.0402 101.806 33.376 105.405 33.06C107.073 32.9178 107.844 34.7127 106.985 35.0097C108.565 34.9908 109.576 37.0795 108.104 37.3924C109.266 38.1381 108.979 39.6676 107.32 40.4196C106.084 40.9884 101.066 41.9902 100.64 39.696Z"
+                    fill="#263238" />
+                <path
+                    d="M104.485 41.4751C103.326 41.4751 102.115 41.3045 101.363 40.802C101.153 40.6753 100.976 40.5002 100.847 40.2914C100.718 40.0826 100.64 39.846 100.621 39.6012C100.62 39.5805 100.627 39.5601 100.64 39.5443C100.654 39.5284 100.673 39.5183 100.693 39.5159C100.704 39.5146 100.714 39.5155 100.725 39.5185C100.735 39.5215 100.744 39.5266 100.752 39.5334C100.76 39.5403 100.767 39.5487 100.771 39.5582C100.776 39.5677 100.778 39.5781 100.779 39.5886C100.798 39.8095 100.869 40.0227 100.986 40.2111C101.103 40.3994 101.262 40.5575 101.452 40.6725C102.883 41.6205 106.192 41.3045 107.222 40.9885C108.113 40.6978 108.717 40.1321 108.837 39.4812C108.874 39.2423 108.845 38.9977 108.751 38.7746C108.658 38.5515 108.505 38.3585 108.309 38.2172C108.301 38.2101 108.295 38.2015 108.291 38.192C108.287 38.1825 108.285 38.1722 108.285 38.1619C108.285 38.1515 108.287 38.1412 108.291 38.1317C108.295 38.1222 108.301 38.1137 108.309 38.1066C108.324 38.0921 108.344 38.084 108.364 38.084C108.385 38.084 108.405 38.0921 108.42 38.1066C108.64 38.2675 108.812 38.4866 108.915 38.7394C109.018 38.9922 109.049 39.2687 109.004 39.538C108.875 40.249 108.233 40.8558 107.285 41.1654C106.37 41.396 105.428 41.5002 104.485 41.4751Z"
+                    fill="#263238" />
+                <path
+                    d="M94.2692 44.2401C93.9749 44.6529 93.8536 45.1643 93.931 45.6653C94.0353 46.3289 94.68 46.3731 95.1476 45.9497C95.6153 45.5263 96.023 44.7615 95.6785 44.2117C95.602 44.0929 95.4963 43.9957 95.3716 43.9293C95.2468 43.8629 95.1072 43.8296 94.9659 43.8324C94.8246 43.8353 94.6864 43.8743 94.5645 43.9456C94.4425 44.017 94.3409 44.1184 94.2692 44.2401Z"
+                    fill="#7F3E3B" />
+                <path
+                    d="M94.4492 69.2546C94.4492 69.2546 95.985 87.4215 97.5808 97.6599C98.8669 105.93 99.8844 125.259 99.8844 125.259H103.493C103.493 125.259 104.776 106.508 104.125 98.3298C102.472 77.6318 106.16 75.9444 102.365 69.2578L94.4492 69.2546Z"
+                    fill="#333D5F" />
+                <path opacity="0.4"
+                    d="M98.9931 76.1213C97.563 77.6224 96.4088 79.3639 95.5835 81.2658C96.0038 85.3485 96.5031 89.88 97.0339 93.8489C99.2123 88.2094 99.8874 82.1005 98.9931 76.1213Z"
+                    fill="black" />
+                <path
+                    d="M91.9243 69.1409C91.9243 69.1409 88.5905 88.9825 88.0659 97.9253C89.3742 106.195 94.7272 123.676 94.7272 123.676L98.0104 122.485C98.0104 122.485 96.1934 103.424 94.2184 98.2066C98.6645 83.2376 101.932 79.452 100.981 69.2546C98.7025 69.2546 91.9243 69.1409 91.9243 69.1409Z"
+                    fill="#333D5F" />
+                <path d="M94.2878 124.548L98.7245 123.344L98.4717 121.575L93.7222 122.861L94.2878 124.548Z"
+                    fill="#263238" />
+                <path d="M99.3881 125.332H103.986L104.226 123.72L99.3628 123.556L99.3881 125.332Z" fill="#263238" />
+                <path
+                    d="M102.523 68.6226L103.006 69.5864C103.044 69.6623 102.956 69.7381 102.832 69.7381H91.5576C91.4628 69.7381 91.3806 69.6907 91.3743 69.6275L91.2764 68.6795C91.2764 68.6132 91.3554 68.5563 91.4596 68.5563H102.346C102.379 68.5518 102.412 68.5555 102.443 68.5671C102.474 68.5787 102.501 68.5978 102.523 68.6226Z"
+                    fill="#333D5F" />
+                <path opacity="0.5"
+                    d="M102.523 68.6226L103.006 69.5864C103.044 69.6623 102.956 69.7381 102.832 69.7381H91.5576C91.4628 69.7381 91.3806 69.6907 91.3743 69.6275L91.2764 68.6795C91.2764 68.6132 91.3554 68.5563 91.4596 68.5563H102.346C102.379 68.5518 102.412 68.5555 102.443 68.5671C102.474 68.5787 102.501 68.5978 102.523 68.6226Z"
+                    fill="black" />
+                <path
+                    d="M101.06 69.8362H101.351C101.411 69.8362 101.455 69.8046 101.452 69.7698L101.313 68.5058C101.313 68.4679 101.259 68.4395 101.202 68.4395H100.908C100.851 68.4395 100.807 68.4679 100.81 68.5058L100.946 69.7698C100.952 69.8109 101.003 69.8362 101.06 69.8362Z"
+                    fill="#333D5F" />
+                <path
+                    d="M97.1477 60.6341C97.1129 60.6335 97.0791 60.6219 97.0512 60.6009C97.0234 60.5799 97.003 60.5505 96.9929 60.5171C95.9627 56.7062 93.8329 53.5651 92.7996 53.0911C92.7193 53.0418 92.6229 53.0259 92.531 53.0469C92.5119 53.0569 92.491 53.063 92.4695 53.0646C92.448 53.0663 92.4263 53.0635 92.4059 53.0565C92.3855 53.0495 92.3668 53.0384 92.3509 53.0239C92.3349 53.0093 92.3221 52.9917 92.3133 52.972C92.3044 52.9524 92.2997 52.9311 92.2993 52.9095C92.299 52.8879 92.3031 52.8665 92.3114 52.8466C92.3196 52.8267 92.3319 52.8087 92.3474 52.7937C92.3628 52.7786 92.3812 52.767 92.4014 52.7593C92.4878 52.7276 92.5801 52.7151 92.6717 52.7228C92.7634 52.7304 92.8524 52.758 92.9323 52.8036C94.0257 53.3218 96.1871 56.4186 97.2678 60.3149C98.042 60.3149 99.2365 60.2106 99.5272 60.1853C99.8874 59.7556 102.536 56.4439 101.546 52.8194C101.541 52.7995 101.539 52.7786 101.542 52.758C101.544 52.7374 101.551 52.7176 101.561 52.6996C101.571 52.6816 101.585 52.6659 101.602 52.6534C101.618 52.6408 101.637 52.6317 101.657 52.6266C101.697 52.616 101.74 52.6216 101.776 52.6423C101.812 52.663 101.839 52.6971 101.85 52.7372C102.953 56.7694 99.7547 60.4065 99.72 60.4413C99.7076 60.4566 99.6923 60.4693 99.6749 60.4785C99.6575 60.4878 99.6385 60.4934 99.6188 60.495C99.6031 60.495 98.0262 60.6341 97.1477 60.6341Z"
+                    fill="#333D5F" />
+                <path
+                    d="M102.384 62.8652C100.662 59.6388 99.9573 59.4113 99.6508 58.3748C99.883 57.7952 100.215 57.2606 100.63 56.7948C100.422 56.7348 99.9731 56.6463 99.6824 56.5926C99.714 56.4504 99.7488 56.3114 99.7804 56.1755C99.464 56.1401 99.144 56.155 98.8324 56.2197V55.9037C98.431 55.8164 98.0187 55.7898 97.6094 55.8247C97.6453 55.9743 97.68 56.126 97.7137 56.2798C97.3977 56.3398 96.9174 56.4378 96.6867 56.5041C97.135 57.0118 97.4642 57.6131 97.6505 58.2642C96.7215 59.86 93.1127 70.1174 98.984 70.9042C104.855 71.6911 104.103 66.0947 102.384 62.8652Z"
+                    fill="#333D5F" />
+                <path opacity="0.4"
+                    d="M102.384 62.8652C100.662 59.6388 99.9573 59.4113 99.6508 58.3748C99.883 57.7952 100.215 57.2606 100.63 56.7948C100.422 56.7348 99.9731 56.6463 99.6824 56.5926C99.714 56.4504 99.7488 56.3114 99.7804 56.1755C99.464 56.1401 99.144 56.155 98.8324 56.2197V55.9037C98.431 55.8164 98.0187 55.7898 97.6094 55.8247C97.6453 55.9743 97.68 56.126 97.7137 56.2798C97.3977 56.3398 96.9174 56.4378 96.6867 56.5041C97.135 57.0118 97.4642 57.6131 97.6505 58.2642C96.7215 59.86 93.1127 70.1174 98.984 70.9042C104.855 71.6911 104.103 66.0947 102.384 62.8652Z"
+                    fill="white" />
+                <path
+                    d="M97.4101 57.9577C97.3736 58.1204 97.3577 58.2871 97.3627 58.4538C97.3627 58.5707 97.6787 58.6497 98.0295 58.6845C98.3803 58.7192 99.8528 58.7761 99.8054 58.6118C99.758 58.4475 99.8781 58.2231 99.8844 58.0841C99.8907 57.945 99.2998 57.9387 98.8037 57.9577C98.3076 57.9766 97.5081 57.7807 97.4101 57.9577Z"
+                    fill="#333D5F" />
+                <path
+                    d="M93.9942 69.8362H94.2849C94.3418 69.8362 94.3861 69.8046 94.3829 69.7698L94.247 68.5058C94.247 68.4679 94.1933 68.4395 94.1333 68.4395H93.852C93.7951 68.4395 93.7509 68.4679 93.7541 68.5058L93.8899 69.7698C93.8836 69.8109 93.9342 69.8362 93.9942 69.8362Z"
+                    fill="#333D5F" />
+            </svg></div>
+        <h1 style="font-size: 40px;font-weight: bold;color: #333D5F;">Registration</h1>
     </div>
-</section>
+    {% if contest %}
+    <div class="mx-lg-5 mt-5 p-5 form-div" style="margin-bottom: 150px;">
+
+        <form method="post" enctype="multipart/form-data" class="mt-5 needs-validation">
+            {% csrf_token %}
+            {{ form.recaptcha }}
+            {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-6 my-4">
+                    <label class="form-label">Last Name*</label>
+
+                    {% if form.is_bound %}
+                    {% if form.last_name.errors %}
+                    {% render_field form.last_name class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.last_name class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.last_name class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.last_name.help_text %}
+                    <small class="form-text text-muted">{{ form.last_name.help_text }}</small>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 my-4">
+                    <label class="form-label">Other Names*</label>
+                    {% if form.is_bound %}
+                    {% if form.other_names.errors %}
+                    {% render_field form.other_names class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.other_names class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.other_names class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.other_names.help_text %}
+                    <small class="form-text text-muted">{{ form.other_names.help_text }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 my-4">
+                    <label class="form-label">Gender*</label>
+                    {% if form.is_bound %}
+                    {% if form.sex.errors %}
+                    {% render_field form.sex class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.sex class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.sex class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.sex.help_text %}
+                    <small class="form-text text-muted">{{ form.sex.help_text }}</small>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 my-4">
+                    <label class="form-label">Age*</label>
+                    {% if form.is_bound %}
+                    {% if form.age.errors %}
+                    {% render_field form.age class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.age class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.age class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.age.help_text %}
+                    <small class="form-text text-muted">{{ form.age.help_text }}</small>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 my-4">
+                    <label class="form-label">State*</label>
+                    {% if form.is_bound %}
+                    {% if form.state.errors %}
+                    {% render_field form.state class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.state class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.state class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.state.help_text %}
+                    <small class="form-text text-muted">{{ form.state.help_text }}</small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 my-4">
+                    <label class="form-label">Email*</label>
+                    {% if form.is_bound %}
+                    {% if form.email.errors %}
+                    {% render_field form.email class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.email class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.email class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.email.help_text %}
+                    <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 my-4">
+                    <label class="form-label">Phone Number*</label>
+                    {% if form.is_bound %}
+                    {% if form.phone_number.errors %}
+                    {% render_field form.phone_number class="form-control form-control-lg is-invalid" %}
+                    {% else %}
+                    {% render_field form.phone_number class="form-control form-control-lg is-valid" %}
+                    {% endif %}
+                    {% else %}
+                    {% render_field form.phone_number class="form-control form-control-lg" %}
+                    {% endif %}
+                    {% if form.phone_number.help_text %}
+                    <small class="form-text text-muted">{{ form.phone_number.help_text }}</small>
+                    {% endif %}
+                </div> 
+            </div>
+                <div class="row">
+                    <div class="col-md-4 my-4">
+                        <label class="form-label">Facebook Link</label>
+                        {% if form.is_bound %}
+                        {% if form.facebook.errors %}
+                        {% render_field form.facebook class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.facebook class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.facebook class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.facebook.help_text %}
+                        <small class="form-text text-muted">{{ form.facebook.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 my-4">
+                        <label class="form-label">Instagram Handle</label>
+                        {% if form.is_bound %}
+                        {% if form.instagram.errors %}
+                        {% render_field form.instagram class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.instagram class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.instagram class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.instagram.help_text %}
+                        <small class="form-text text-muted">{{ form.instagram.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 my-4">
+                        <label class="form-label">Twitter Handle</label>
+                        {% if form.is_bound %}
+                        {% if form.twitter.errors %}
+                        {% render_field form.twitter class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.twitter class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.twitter class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.twitter.help_text %}
+                        <small class="form-text text-muted">{{ form.twitter.help_text }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 my-4">
+                        <label class="form-label">Occupation*</label>
+                        {% if form.is_bound %}
+                        {% if form.profession.errors %}
+                        {% render_field form.profession class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.profession class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.profession class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.profession.help_text %}
+                        <small class="form-text text-muted">{{ form.profession.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 my-4">
+                        <label class="form-label">Photograph*</label>
+                        {% if form.is_bound %}
+                        {% if form.photograph.errors %}
+                        {% render_field form.photograph class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.photograph class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.photograph class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.photograph.help_text %}
+                        <small class="form-text text-muted">{{ form.photograph.help_text }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col my-4">
+                        <label class="form-label">Tell us a little about yourself*</label>
+                        {% if form.is_bound %}
+                        {% if form.about.errors %}
+                        {% render_field form.about class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.about class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.about class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.about.help_text %}
+                        <small class="form-text text-muted">{{ form.about.help_text }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col my-4" style="color: #333D5F;font-size: 14px;">
+                        <p class="text-center">By registering, you agree to our Terms &amp; Policies which include a 
+                            ₦{{contest.registration_fee_amount|intcomma }} payment and accurate provided information to the
+                            best of your knowledge</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center"><button class="btn btn-primary btn-lg" type="submit"
+                            style="background-color: #333D5F;font-size: 18px;padding: 14px 44px;border-radius: 3px;">SUBMIT</button>
+                    </div>
+                </div>
+        </form>
+
+    </div>
+    {% else %}
+    <h3 class="text-muted display-6 my-5">No active competition at the moment</h3>
+    {% endif %}
+
+</div>
 
 {% endblock %}

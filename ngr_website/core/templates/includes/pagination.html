@@ -1,40 +1,35 @@
-<div class="d-flex justify-content-center">
-  <div class="block-27">
-      <ul>
-        {% if page_obj.has_previous %}
-        <li>
-          <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-            <i class="fa fa-angle-left"></i>
-          </a>
-        </li>
-        {% else %}
-        <li class="disabled">
-          <a href="#" aria-label="Previous">
-            <i class="fa fa-angle-left"></i>
-          </a>
-        </li>
-        {% endif %}
-        {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-              <li class="active"><a href="?page={{num}}">{{num}}</a></li>	
-        {% elif num > page_obj.number|add:'-6' and num < page_obj.number|add:'6' %}
-              <li ><a href="?page={{num}}"><span>{{num}}</span></a></li>	
-        {% endif %}
-          {% endfor %}
-          {% if page_obj.has_next %}
-          <li >
-            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-              <i class="fa fa-angle-right"></i>
-            </a>
-          </li>
-          {% else %}
-          <li class="disabled">
-            <a href="#" aria-label="Next">
-              <i class="fa fa-angle-right"></i>
-            </a>
-          </li>
-          {% endif %}
-      </ul>
-  </div>
-</div>    
+<div class="text-center d-flex justify-content-center align-items-center py-5">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"
+    style="text-decoration: none;color: #000000;font-size: 18px;"><i class="fas fa-chevron-left m-3"></i></a>
+  {% else %}
+  <a class="disabled" href="#" style="text-decoration: none;color: #000000;font-size: 18px;"><i
+      class="fas fa-chevron-left m-3"></i></a>
 
+  {% endif %}
+  {% for num in page_obj.paginator.page_range %}
+  {% if page_obj.number == num %}
+  <a href="?page={{num}}" style=" text-decoration: none;">
+    <div class="paginate mx-1" style="background-color:#333D5F;">
+      <p>{{num}}</p>
+    </div>
+  </a>
+  {% elif num > page_obj.number|add:'-6' and num < page_obj.number|add:'6' %} <a href="?page={{num}}"
+    style="text-decoration: none;">
+    <div class="paginate mx-1">
+      <p>{{num}}</p>
+    </div>
+    </a>
+
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"
+      style="text-decoration: none;color: #000000;font-size: 18px;"><i class="fas fa-chevron-right mx-3"></i></a>
+    {% else %}
+    <a class="disabled" href="#" style="text-decoration: none;color: #000000;font-size: 18px;"><i
+        class="fas fa-chevron-right mx-3"></i></a>
+    {% endif %}
+
+</div>
