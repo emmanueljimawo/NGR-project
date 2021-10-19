@@ -31,7 +31,11 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3 order-sm-4 order-md-3 my-md-3 mt-5">
             <h1 style="font-size: 18px;color: #333D5F;font-weight: bold;">Stay Updated</h1>
-            <div class="d-flex mt-3"><input type="email" class="me-1 px-2" style="height: 40px;border: none;width: 90%;" placeholder="Enter your email"><button class="btn btn-primary" type="button" style="border-radius: 0px;background-color: #333D5F;height: 40px;width: 46px;border: none;"><i class="fab fa-telegram-plane"></i></button></div>
+            <form action="post">
+                {% csrf_token %}
+                
+            <div class="d-flex mt-3"><input type="email" name="email" class="me-1 px-2" style="height: 40px;border: none;width: 90%;" placeholder="Enter your email"><button class="btn btn-primary" type="submit" style="border-radius: 0px;background-color: #333D5F;height: 40px;width: 46px;border: none;"><i class="fab fa-telegram-plane"></i></button></div>
+        </form>
         </div>
     </div>
 </footer>

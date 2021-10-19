@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}Contact Us{% endblock %}
 
@@ -98,16 +99,87 @@
     </div>
     <div class="row">
         <div class="col-lg-8 p-4">
-            <form>
+            <form method="post" enctype="multipart/form-data" class="mt-5 needs-validation">
+                {% csrf_token %}
+                {{ form.recaptcha }}
+                {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+                {% endfor %}
+    
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                    {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-6 my-4"><label class="form-label">Last Name*</label><input class="form-control form-control-lg" type="text" required=""></div>
-                    <div class="col-md-6 my-4"><label class="form-label">Other Names*</label><input class="form-control form-control-lg" type="text" required=""></div>
+                    <div class="col-md-6 my-4">
+                        <label class="form-label">Last Name*</label>
+    
+                        {% if form.is_bound %}
+                        {% if form.last_name.errors %}
+                        {% render_field form.last_name class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.last_name class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.last_name class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.last_name.help_text %}
+                        <small class="form-text text-muted">{{ form.last_name.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 my-4">
+                        <label class="form-label">Other Names*</label>
+                        {% if form.is_bound %}
+                        {% if form.other_names.errors %}
+                        {% render_field form.other_names class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.other_names class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.other_names class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.other_names.help_text %}
+                        <small class="form-text text-muted">{{ form.other_names.help_text }}</small>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 my-4"><label class="form-label">Email*</label><input class="form-control form-control-lg" type="email" required=""></div>
-                </div>
+                    <div class="col-md-6 my-4">
+                        <label class="form-label">Email*</label>
+                        {% if form.is_bound %}
+                        {% if form.email.errors %}
+                        {% render_field form.email class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.email class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.email class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.email.help_text %}
+                        <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    </div>
                 <div class="row">
-                    <div class="col my-4"><label class="form-label">Message*</label><textarea class="form-control" rows="12" placeholder="Type the message you wish to send" required=""></textarea></div>
+                    <div class="col my-4">
+                        <label class="form-label">Message*</label>
+                        {% if form.is_bound %}
+                        {% if form.message.errors %}
+                        {% render_field form.message class="form-control form-control-lg is-invalid" %}
+                        {% else %}
+                        {% render_field form.message class="form-control form-control-lg is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field form.message class="form-control form-control-lg" %}
+                        {% endif %}
+                        {% if form.message.help_text %}
+                        <small class="form-text text-muted">{{ form.message.help_text }}</small>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row px-4 mt-4">
                     <div class="col-lg-6 my-4">
@@ -123,7 +195,7 @@
                             </svg></a></div>
                         </div>
                     </div>
-                    <div class="col-lg-6 text-md-center d-lg-flex order-first justify-content-md-end align-items-md-center order-lg-last my-4"><button class="btn btn-primary btn-lg px-5 rounded" type="button" style="background-color: #333D5F;">SUBMIT</button></div>
+                    <div class="col-lg-6 text-md-center d-lg-flex order-first justify-content-md-end align-items-md-center order-lg-last my-4"><button class="btn btn-primary btn-lg px-5 rounded" type="submit" style="background-color: #333D5F;">SUBMIT</button></div>
                 </div>
             </form>
         </div>
