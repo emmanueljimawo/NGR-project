@@ -1,13 +1,12 @@
-.navbar-nav .nav-link {
-  color: #333D5F !important;
+.navbar-light .navbar-nav .nav-link {
+  color: #333D5F;
   padding: 8px !important;
   margin: 0 10px;
-  border-bottom: 3px solid transparent;
-
+  border-color: #20B07C;
 }
 
-.home .navbar-nav .nav-link {
-  color: #ffffff !important;
+.home .navbar-light .navbar-nav .nav-link {
+  color: #ffffff;
 }
 
 .home .navbar-toggler .bi-filter-right {
