@@ -14,13 +14,13 @@
 }
 
 @media (min-width: 768px) {
-  .home .active, .home .nav-link:hover, .active, .nav-link:hover {
+  .home .active, .home .nav-link:hover, .nav-item .active, .nav-link:hover {
     border-bottom: 3px solid #20B07C !important;
   }
 }
 
 @media (max-width: 768px) {
-  .home .active, .home .nav-link:hover, .active, .nav-link:hover {
+  .home .active, .home .nav-link:hover, .nav-item .active, .nav-link:hover {
     color: #20B07C !important;
   }
 }
