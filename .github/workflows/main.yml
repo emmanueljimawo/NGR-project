@@ -3,7 +3,7 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
-  NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.19
+  NGR_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/ngr_website:v1.0.20
   NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx:v1.0.54
 
 jobs:
@@ -42,7 +42,6 @@ jobs:
           echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
           echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
           echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
-
           echo EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }} >> .env
           echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
           echo EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }} >> .env
@@ -106,7 +105,6 @@ jobs:
           echo LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }} >> .env
           echo REDIRECT_STATUS_CODE=${{ secrets.REDIRECT_STATUS_CODE }} >> .env
           echo REDIRECT_LOCATION=${{ secrets.REDIRECT_LOCATION }} >> .env
-
           echo EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }} >> .env
           echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
           echo EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }} >> .env
@@ -114,7 +112,6 @@ jobs:
           echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
           echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
           echo FROM_EMAIL=${{ secrets.FROM_EMAIL }} >> .env
-          
           echo NGR_IMAGE=${{ env.NGR_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
       - name: Add the private SSH key to the ssh-agent
