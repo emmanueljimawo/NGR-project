@@ -1,6 +1,7 @@
 media
 *sqlite3
 design
+design_old
 database.png
 *.dev
 PRIVATE_KEY.pem
