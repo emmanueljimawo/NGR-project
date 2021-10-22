@@ -34,20 +34,29 @@ class ContactUs(FormView):
         other_names = form.cleaned_data['other_names']
         email = form.cleaned_data['email']
         message = form.cleaned_data['message']
-        try:
-            send_mail(
-                subject,
-                f'Email: {email}\nLast Name: {last_name}\nOther Names: {other_names}\n\nMessage: {message}',
-                from_email,
-                [from_email],
-                fail_silently=False,
-            )
-            messages.success(self.request, mark_safe(f'Your message has been sent!'))
-        except:
-            self.render_to_response(self.get_context_data(form=form))
-            messages.error(self.request, mark_safe(f'Error! Message not sent!'))
+        send_mail(
+            subject,
+            f'Email: {email}\nLast Name: {last_name}\nOther Names: {other_names}\n\nMessage: {message}',
+            from_email,
+            [from_email],
+            fail_silently=False,
+        )
+        messages.success(self.request, mark_safe(f'Your message has been sent!'))
         return super().form_valid(form)
 
+        # try:
+        #     send_mail(
+        #         subject,
+        #         f'Email: {email}\nLast Name: {last_name}\nOther Names: {other_names}\n\nMessage: {message}',
+        #         from_email,
+        #         [from_email],
+        #         fail_silently=False,
+        #     )
+        #     messages.success(self.request, mark_safe(f'Your message has been sent!'))
+        # except:
+        #     self.render_to_response(self.get_context_data(form=form))
+        #     messages.error(self.request, mark_safe(f'Error! Message not sent!'))
+        # return super().form_valid(form)
 
     def form_invalid(self, form):
         """If the form is invalid, render the invalid form."""
