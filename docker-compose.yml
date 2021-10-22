@@ -12,31 +12,18 @@ services:
   ngr_website:
     build:
       context: ./ngr_website
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:8000
     networks:
       - ngr-network
     volumes:
+      - ./ngr_website/:/usr/src/app/
       - ngr_staticfiles:/usr/src/app/staticfiles
       - ngr_media:/usr/src/app/media
     env_file: .env.dev
     depends_on:
       - db
-
-  nginx-proxy:
-    container_name: nginx-proxy
-    build:
-      context: ./nginx
-    restart: always
-    ports:
-      - 443:443
-      - 80:80
-    networks:
-      - ngr-network
-    volumes:
-      - ngr_staticfiles:/usr/src/app/staticfiles
-      - ngr_media:/usr/src/app/media
-    depends_on:
-      - ngr_website
 
 volumes:
   ngr_db:
