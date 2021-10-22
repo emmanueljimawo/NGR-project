@@ -176,4 +176,4 @@ EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER='gigantlimited@gmail.com'
 EMAIL_HOST_PASSWORD='Am5terd@m'
-FROM_EMAIL='NGR <gigantlimited@gmail.com>'
+FROM_EMAIL='gigantlimited@gmail.com'
