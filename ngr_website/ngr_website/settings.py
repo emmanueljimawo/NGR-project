@@ -159,14 +159,21 @@ PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY', '')
 PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY', '')
 CURRENCY="NGN"
 
-# Email Settings
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# # Email Settings
+# EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # FROM_EMAIL = os.environ.get('FROM_EMAIL')
-FROM_EMAIL="NGR <gigantlimited@gmail.com>"
 
 # EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_USE_TLS=True
+EMAIL_PORT=587
+EMAIL_HOST_USER='gigantlimited@gmail.com'
+EMAIL_HOST_PASSWORD='Am5terd@m'
+FROM_EMAIL='NGR <gigantlimited@gmail.com>'
