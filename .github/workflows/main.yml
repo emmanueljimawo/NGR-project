@@ -48,7 +48,6 @@ jobs:
           echo EMAIL_PORT=${{ secrets.EMAIL_PORT }} >> .env
           echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
           echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
-          echo FROM_EMAIL=${{ secrets.FROM_EMAIL }} >> .env
 
       - name: Set environment variables
         run: |
@@ -111,7 +110,6 @@ jobs:
           echo EMAIL_PORT=${{ secrets.EMAIL_PORT }} >> .env
           echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
           echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
-          echo FROM_EMAIL=${{ secrets.FROM_EMAIL }} >> .env
           echo NGR_IMAGE=${{ env.NGR_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
       - name: Add the private SSH key to the ssh-agent
