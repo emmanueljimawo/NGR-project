@@ -28,7 +28,8 @@ class ContactUs(FormView):
     def form_valid(self, form):
         """If the form is valid, redirect to the supplied URL."""
         subject = f'NGR Contact Form'
-        from_email = settings.FROM_EMAIL
+        # from_email = settings.FROM_EMAIL
+        from_email = 'NGR <gigantlimited@gmail.com>'
         last_name = form.cleaned_data['last_name']
         other_names = form.cleaned_data['other_names']
         email = form.cleaned_data['email']
