@@ -1,14 +1,14 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
-from .forms import ContactForm
+
+from .models import EmailSubscription
+from .forms import ContactForm, EmailSubscriptionForm
 from django.views.generic import FormView, TemplateView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.safestring import mark_safe
 from django.core.mail import send_mail
-from django.conf import settings
 import asyncio
 
 
@@ -28,7 +28,6 @@ class ContactUs(FormView):
     def form_valid(self, form):
         """If the form is valid, redirect to the supplied URL."""
         subject = f'NGR Contact Form'
-        # from_email = settings.FROM_EMAIL
         from_email = 'NGR <gigantlimited@gmail.com>'
         last_name = form.cleaned_data['last_name']
         other_names = form.cleaned_data['other_names']
@@ -53,8 +52,32 @@ class ContactUs(FormView):
         messages.error(self.request, mark_safe(f'Error! Message not sent!'))
         return self.render_to_response(self.get_context_data(form=form))
 
-def subscribe(request):
-    return render(request)
+
+# class EmailSubscription(FormView):
+#     form_class = EmailSubscriptionForm
+#     template_name = 'base.html'
+#     success_url = reverse_lazy('core:contact_us')
+
+
+def email_subscription(request):
+    form = EmailSubscriptionForm
+    if request.method == 'POST':
+        form = form(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            if EmailSubscription.objects.filter(email=email).exists():
+                messages.error(request, mark_safe('Email already exist'))
+                return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                form.save()
+                messages.success(request, mark_safe('Email submitted successfully'))
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, mark_safe('Error submitting email'))
+            return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, 'base.html', {'subscription_form':form})
+
+
 
 
 def custom_page_not_found_view(request, exception):

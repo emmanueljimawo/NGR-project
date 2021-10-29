@@ -8,9 +8,11 @@ class EmailSubscriptionForm(forms.ModelForm):
     """
     Email Subscription form.
     """
+    email = forms.EmailField(label=_(''), widget=forms.EmailInput(attrs={'class':'me-1 px-2', 'placeholder':"Enter your email", "style": "height: 40px; border: none; width: 90%;"}))
     class Meta:
         model = EmailSubscription
         fields = ('email',)
+        
 
 
 class ContactForm(forms.Form):

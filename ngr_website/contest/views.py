@@ -1,18 +1,14 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404
 from django.urls.base import reverse
 from django.utils.safestring import mark_safe
-from django.views.generic import FormView, ListView, DetailView
-from django.views.generic.base import TemplateView
+from django.views.generic import FormView, ListView
 from django.views.generic.edit import UpdateView
 from .forms import PaymentForm, RegistrationForm
 from .models import Contest, Contestant, Vote
-from django.urls import reverse_lazy
 import uuid
 from django.utils.text import slugify
 from django.contrib import messages
-import json
-from django.http import JsonResponse
 from django.db.models import Q
 
 

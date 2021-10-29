@@ -7,6 +7,7 @@ from contest.models import TimeStampModel
 
 class EmailSubscription(TimeStampModel):
     email = models.EmailField(max_length=200)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email

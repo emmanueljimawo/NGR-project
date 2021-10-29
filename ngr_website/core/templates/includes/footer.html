@@ -1,3 +1,5 @@
+{% load widget_tweaks %}
+
 <div class="d-flex justify-content-center py-2">
     <hr class="d-none d-lg-block" style="width: 90%;">
 </div>
@@ -29,13 +31,35 @@
                 <path d="M17.334 0C7.94658 0 0.333984 7.61259 0.333984 17C0.333984 26.3874 7.94658 34 17.334 34C26.7214 34 34.334 26.3874 34.334 17C34.334 7.61259 26.7214 0 17.334 0ZM25.096 13.2548C25.1035 13.4221 25.1071 13.5902 25.1071 13.7591C25.1071 18.9151 21.1824 24.8608 14.0051 24.8611H14.0054H14.0051C11.8015 24.8611 9.75096 24.2152 8.02414 23.1083C8.32945 23.1444 8.64021 23.1623 8.95486 23.1623C10.7831 23.1623 12.4656 22.5387 13.8012 21.492C12.0931 21.4604 10.6529 20.3322 10.1559 18.7818C10.3938 18.8275 10.6384 18.8524 10.8892 18.8524C11.2454 18.8524 11.5904 18.8044 11.9182 18.7149C10.1328 18.3574 8.78781 16.7795 8.78781 14.89C8.78781 14.8724 8.78781 14.8566 8.78833 14.8402C9.31413 15.1326 9.91542 15.3085 10.5556 15.3282C9.5079 14.6291 8.8192 13.434 8.8192 12.0802C8.8192 11.3653 9.01245 10.6956 9.3476 10.1189C11.2718 12.48 14.1475 14.0327 17.3905 14.1959C17.3236 13.91 17.2891 13.6122 17.2891 13.3062C17.2891 11.1521 19.0367 9.40453 21.1915 9.40453C22.3139 9.40453 23.3277 9.87897 24.0397 10.6375C24.9287 10.4621 25.7634 10.1373 26.5175 9.69038C26.2257 10.6011 25.6073 11.3653 24.8016 11.8486C25.5909 11.7542 26.3432 11.5448 27.0423 11.2341C26.5201 12.0167 25.8578 12.7041 25.096 13.2548Z"></path>
             </svg></a></div>
         </div>
-        <div class="col-sm-12 col-md-4 col-lg-3 order-sm-4 order-md-3 my-md-3 mt-5">
-            <h1 style="font-size: 18px;color: #333D5F;font-weight: bold;">Stay Updated</h1>
-            <form action="post">
-                {% csrf_token %}
-                
-            <div class="d-flex mt-3"><input type="email" name="email" class="me-1 px-2" style="height: 40px;border: none;width: 90%;" placeholder="Enter your email"><button class="btn btn-primary" type="submit" style="border-radius: 0px;background-color: #333D5F;height: 40px;width: 46px;border: none;"><i class="fab fa-telegram-plane"></i></button></div>
+            <form action="{% url 'core:email_subscription' %}" class="col-sm-12 col-md-4 col-lg-3 order-sm-4 order-md-3 my-md-3 mt-5 mt-5 needs-validation" method="post">
+                <h1 style="font-size: 18px;color: #333D5F;font-weight: bold;">Stay Updated</h1>
+                {% csrf_token %}   
+                {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+                {% endfor %}
+    
+                    <div class="row">
+                    <div class="d-flex">
+                        {% render_field subscription_form.email  %}                        
+                        <button class="btn btn-primary" type="submit" style="border-radius: 0px;background-color: #333D5F;height: 40px;width: 46px;border: none;"><i class="fab fa-telegram-plane"></i></button>
+                    </div>
+                </div>
+                {% if subscription_form.email.help_text %}
+                <small class="form-text text-muted">{{ subscription_form.email.help_text }}</small>
+                {% endif %}
+                {% if subscription_form.non_field_errors %}
+                <small class="alert alert-danger" role="alert">
+                    {% for error in subscription_form.non_field_errors %}
+                    {{ error }}
+                    {% endfor %}
+                </small>
+                {% endif %}
+
+
+
+
         </form>
-        </div>
     </div>
 </footer>
+
+
