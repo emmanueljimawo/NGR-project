@@ -29,6 +29,7 @@ class ContactUs(FormView):
         """If the form is valid, redirect to the supplied URL."""
         subject = f'NGR Contact Form'
         from_email = 'NGR <gigantlimited@gmail.com>'
+        to_email = 'naijagracerace@gmail.com'
         last_name = form.cleaned_data['last_name']
         other_names = form.cleaned_data['other_names']
         email = form.cleaned_data['email']
@@ -38,7 +39,7 @@ class ContactUs(FormView):
                 subject,
                 f'Email: {email}\nLast Name: {last_name}\nOther Names: {other_names}\n\nMessage: {message}',
                 from_email,
-                [from_email],
+                [to_email],
                 fail_silently=False,
             )
             messages.success(self.request, mark_safe(f'Your message has been sent!'))
@@ -52,11 +53,6 @@ class ContactUs(FormView):
         messages.error(self.request, mark_safe(f'Error! Message not sent!'))
         return self.render_to_response(self.get_context_data(form=form))
 
-
-# class EmailSubscription(FormView):
-#     form_class = EmailSubscriptionForm
-#     template_name = 'base.html'
-#     success_url = reverse_lazy('core:contact_us')
 
 
 def email_subscription(request):
