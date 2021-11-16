@@ -1,4 +1,5 @@
-from django.http.response import HttpResponseRedirect
+import json
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls.base import reverse
 from django.utils.safestring import mark_safe
@@ -89,3 +90,8 @@ def verify_voting_fee_payment(request, slug, ref):
     else:
         messages.error(request, mark_safe('Voting failed'))
     return HttpResponseRedirect(reverse('contest:profile', kwargs={'slug': contestant.slug}))
+
+
+def paystack_webhook(request):
+    return JsonResponse(json.dumps(request.POST), safe=False)
+
