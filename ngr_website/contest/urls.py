@@ -16,6 +16,7 @@ urlpatterns = [
     path('contestants/', Contestants.as_view(), name='contestants'),
     path('registration/<str:ref>/', verify_registration_fee_payment, name='verify_registration_fee_payment'),
     path('voting/<slug:slug>/<str:ref>/', verify_voting_fee_payment, name='verify_voting_fee_payment'),
-    path('paystack/webhook/', view=csrf_exempt(paystack_webhook), name='p_stack_webhook'),
+    # path('paystack/webhook/', view=csrf_exempt(paystack_webhook), name='p_stack_webhook'),
+    path('paystack/webhook/', Contestants.as_view(), name='p_stack_webhook'),
 
 ]
