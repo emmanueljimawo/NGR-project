@@ -53,8 +53,9 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav navbar-nav-scroll me-auto" style="font-family: Gilroy-Light;">
                 <li class="nav-item"><a class="nav-link {% ifactive 'core:home' %}active{% endifactive %}" href="{% url 'core:home' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link {% ifactive 'contest:contestants' %}active{% endifactive %}" href="{% url 'contest:contestants' %}">Contestants</a></li>
                 <li class="nav-item"><a class="nav-link {% ifactive 'contest:registration' %}active{% endifactive %}" href="{% url 'contest:registration' %}">Registration</a></li>
+                <li class="nav-item"><a class="nav-link {% ifactive 'contest:contestants' %}active{% endifactive %}" href="{% url 'contest:contestants' %}">Contestants</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="#">Videos</a></li> -->
                 <li class="nav-item"><a class="nav-link {% ifactive 'core:about_us' %}active{% endifactive %}" href="{% url 'core:about_us' %}">About Us</a></li>
                 <li class="nav-item"><a class="nav-link {% ifactive 'core:contact_us' %}active{% endifactive %}" href="{% url 'core:contact_us' %}">Contact Us</a></li>
             </ul>
