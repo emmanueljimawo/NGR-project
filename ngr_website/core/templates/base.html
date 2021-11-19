@@ -19,7 +19,9 @@
 </head>
 
 <body id="{% block body_id%}{% endblock %}" class="{% block body_class%}{% endblock %}">
+
     {% include 'includes/alert.html' %}
+    {% include 'includes/banner.html' %}
     {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
     {% block content %}{% endblock %}
     <a onclick="scrollToTop()">
