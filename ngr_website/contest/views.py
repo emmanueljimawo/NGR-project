@@ -95,3 +95,4 @@ def verify_voting_fee_payment(request, slug, ref):
 def paystack_webhook(request):
     return JsonResponse(json.dumps(request.POST), safe=False)
 
+    

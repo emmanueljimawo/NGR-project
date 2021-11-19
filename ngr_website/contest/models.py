@@ -6,6 +6,7 @@ from .model_choices import SEX, STATES_IN_NIGERIA
 from .paystack import Paystack
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from django.utils import timezone
 
 # Create your models here.
 
@@ -19,9 +20,15 @@ class TimeStampModel(models.Model):
 class Contest(TimeStampModel):
     title = models.CharField(max_length=200)
     start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
     registration_fee_amount = models.IntegerField()
     voting_fee_amount = models.IntegerField()
     active = models.BooleanField(default=False)
+
+    def has_started(self):
+        if self.end_date:
+            return self.start_date <= timezone.now() <= self.end_date
+        return self.start_date <= timezone.now()
 
     def __str__(self):
         return self.title

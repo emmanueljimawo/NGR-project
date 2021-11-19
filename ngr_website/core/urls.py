@@ -22,5 +22,6 @@ urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('about-us/', AboutUs.as_view(), name='about_us'),
     path('contact-us/', ContactUs.as_view(), name='contact_us'),
-    path('email-subscription', email_subscription, name='email_subscription')
+    path('email-subscription', email_subscription, name='email_subscription'),
+    # path('email-subscription', EmailSubscription.as_view(), name='email_subscription')
 ]

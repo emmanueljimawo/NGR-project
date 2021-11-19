@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
+from django.views.generic.base import View
 
 from .models import EmailSubscription
 from .forms import ContactForm, EmailSubscriptionForm
@@ -72,6 +73,27 @@ def email_subscription(request):
             messages.error(request, mark_safe('Error submitting email'))
             return redirect(request.META.get('HTTP_REFERER'))
     return render(request, 'base.html', {'subscription_form':form})
+
+
+# class EmailSubscription(View):
+#     form = EmailSubscriptionForm
+#     def get(self):
+#         return render(self.request, 'base.html', {'subscription_form':self.form})
+    
+#     def post(self):
+#         form = self.form(self.request.POST)
+#         if form.is_valid():
+#             email = form.cleaned_data.get('email')
+#             if EmailSubscription.objects.filter(email=email).exists():
+#                 messages.error(self.request, mark_safe('Email already exist'))
+#                 return redirect(self.request.META.get('HTTP_REFERER'))
+#             else:
+#                 form.save()
+#                 messages.success(self.request, mark_safe('Email submitted successfully'))
+#                 return redirect(self.request.META.get('HTTP_REFERER'))
+#         else:
+#             messages.error(self.request, mark_safe('Error submitting email'))
+#             return redirect(self.request.META.get('HTTP_REFERER'))
 
 
 
