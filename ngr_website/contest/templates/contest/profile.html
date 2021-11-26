@@ -125,6 +125,22 @@
         </div>
         <h1 style="font-size: 40px;font-weight: bold;color: #333D5F;">Profile</h1>
     </div>
+    <div class="my-3"  style="text-align: right;">
+        <div class="dropdown">
+            <button class="btn btn-outline-success dropdown-toggle btn-lg me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" >
+                <i class="far fa-share-square me-1"></i>Share
+            </button>
+            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item text-secondary twitter" href="#" data-url="{% url 'contest:profile' object.slug %}"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+                <a class="dropdown-item text-secondary facebook" href="#" data-url="{% url 'contest:profile' object.slug %}"><i class="fab fa-facebook-square mr-2"></i>Facebook</a>
+                <a class="dropdown-item text-secondary linkedin" href="#" data-url="{% url 'contest:profile' object.slug %}"><i class="fab fa-linkedin mr-2"></i>Linkedin</a>
+                <a data-action="share/whatsapp/share" class="dropdown-item text-secondary whatsapp" href="#" data-url="{% url 'contest:profile' object.slug %}"><i class="fab fa-whatsapp mr-2"></i>Whatsapp</a>
+                <a class="dropdown-item text-secondary copy-link" href="#" data-url="{% url 'contest:profile' object.slug %}"><i class="fas fa-link mr-2"></i>Copy link</a>
+            </div>
+            
+        </div>
+    
+    </div>
     <div class="row mt-5" style="background-color: #ffffff;padding: 12px;">
         <div class="col">
             <div class="row">
