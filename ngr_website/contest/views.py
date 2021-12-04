@@ -63,11 +63,11 @@ class Contestants(ListView):
         except:
             keyword = ''
         if (keyword != ''):
-            object_list = self.model.objects.filter(
-                Q(state__istartswith=keyword) | Q(last_name__istartswith=keyword) | Q(other_names__icontains=keyword) | Q(email__istartswith=keyword), payment_verified=True)
+            object_list = sorted(self.model.objects.filter(
+                Q(state__istartswith=keyword) | Q(last_name__istartswith=keyword) | Q(other_names__icontains=keyword) | Q(email__istartswith=keyword), payment_verified=True), key= lambda  t: t.count_votes(), reverse=True)
                 
         else:
-            object_list = self.model.objects.all()
+            object_list = sorted(self.model.objects.all(), key= lambda  t: t.count_votes(), reverse=True)
         return object_list
 
 
