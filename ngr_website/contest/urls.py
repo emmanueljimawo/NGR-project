@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
-from .views import Contestants, paystack_webhook, Payment, Profile, Registration, verify_registration_fee_payment, verify_voting_fee_payment
+from .views import Contestants, paystack_webhook, Profile, Registration, verify_registration_fee_payment, verify_voting_fee_payment
 
 app_name = 'contest'
 
@@ -12,7 +12,6 @@ handler400 = 'core.views.custom_bad_request_view'
 
 urlpatterns = [
     path('registration/', Registration.as_view(), name='registration'),
-    path('payment/', Payment.as_view(), name='payment'),
     path('contestants/<slug:slug>/', Profile.as_view(), name='profile'),
     path('contestants/', Contestants.as_view(), name='contestants'),
     path('registration/<str:ref>/', verify_registration_fee_payment, name='verify_registration_fee_payment'),
