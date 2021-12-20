@@ -106,13 +106,19 @@ class Vote(TimeStampModel):
     contestant = models.ForeignKey(Contestant, related_name="vote", on_delete=models.CASCADE)
     ref_number = models.CharField(max_length=200)
     payment_verified = models.BooleanField(default=False)
+    amount_paid = models.IntegerField(blank=True, null=True)
+    votes_count = models.PositiveIntegerField(blank=True, null=True)
 
     def verify_payment(self):
         paystack = Paystack()
         status, result = paystack.verify_payment(self.ref_number, self.contestant.contest.voting_fee_amount)
         if status:
-            if result['amount'] / 100 == self.contestant.contest.voting_fee_amount:
+            if result['amount'] / 100 >= self.contestant.contest.voting_fee_amount:
+                amount = result['amount'] / 100
                 self.payment_verified = True
+                self.amount_paid = amount
+                self.votes_count = amount/self.contestant.contest.voting_fee_amount
+
             self.save()
         if self.payment_verified:
             return True

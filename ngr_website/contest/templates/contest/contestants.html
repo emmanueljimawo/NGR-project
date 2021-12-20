@@ -430,8 +430,8 @@
                             <p style="color: #20B07C;font-size: 20px;">{{object.state}}, Nigeria</p>
                         </div>
                         <div class="text-center d-flex flex-column justify-content-center contestants-votes">
-                            <p>{% if object.count_votes %}{{object.count_votes|intcomma}}{% else %}0{% endif %}</p>
-                            <p>{% if object.count_votes > 1 %}votes{% else %}vote{% endif %}</p>
+                            <p>{% if object.vote_count %}{{ object.vote_count|intcomma }}{% else %}0{% endif %}</p>
+                            <p>{% if object.vote_count > 1 %}votes{% else %}vote{% endif %}</p>
                         </div>
                     </div>
                 </a></div>            
