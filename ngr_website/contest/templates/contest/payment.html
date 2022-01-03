@@ -291,8 +291,9 @@
                     data-key="{{paystack_public_key}}" 
                     data-email="{{object.email}}" 
                     data-amount="{{contest.registration_fee_amount}}"
-                    data-label="{{object.slug}}"
-                    data-url="{% url 'contest:verify_registration_fee_payment' object.ref_number %}"
+                    data-url="/contest/registration/{{ object.slug }}/"
+                    data-slug="{{ object.slug }}"
+                    data-payment_type="register"
                     >
                     PROCEED TO PAYMENT</button>
                 </div>

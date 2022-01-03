@@ -66,16 +66,16 @@ class Contestant(TimeStampModel):
     def __str__(self):
         return f'{self.last_name} {self.other_names}' 
 
-    def verify_payment(self):
-        paystack = Paystack()
-        status, result = paystack.verify_payment(self.ref_number, self.contest.registration_fee_amount)
-        if status:
-            if result['amount'] / 100 == self.contest.registration_fee_amount:
-                self.payment_verified = True
-            self.save()
-        if self.payment_verified:
-            return True
-        return False
+    # def verify_payment(self):
+    #     paystack = Paystack()
+    #     status, result = paystack.verify_payment(self.ref_number, self.contest.registration_fee_amount)
+    #     if status:
+    #         if result['amount'] / 100 == self.contest.registration_fee_amount:
+    #             self.payment_verified = True
+    #         self.save()
+    #     if self.payment_verified:
+    #         return True
+    #     return False
     
     def count_votes(self):
         votes_count = Vote.objects.filter(payment_verified=True, contestant=self).count()
@@ -109,20 +109,20 @@ class Vote(TimeStampModel):
     amount_paid = models.IntegerField(blank=True, null=True)
     votes_count = models.PositiveIntegerField(blank=True, null=True)
 
-    def verify_payment(self):
-        paystack = Paystack()
-        status, result = paystack.verify_payment(self.ref_number, self.contestant.contest.voting_fee_amount)
-        if status:
-            if result['amount'] / 100 >= self.contestant.contest.voting_fee_amount:
-                amount = result['amount'] / 100
-                self.payment_verified = True
-                self.amount_paid = amount
-                self.votes_count = amount/self.contestant.contest.voting_fee_amount
+    # def verify_payment(self):
+    #     paystack = Paystack()
+    #     status, result = paystack.verify_payment(self.ref_number, self.contestant.contest.voting_fee_amount)
+    #     if status:
+    #         if result['amount'] / 100 >= self.contestant.contest.voting_fee_amount:
+    #             amount = result['amount'] / 100
+    #             self.payment_verified = True
+    #             self.amount_paid = amount
+    #             self.votes_count = amount/self.contestant.contest.voting_fee_amount
 
-            self.save()
-        if self.payment_verified:
-            return True
-        return False
+    #         self.save()
+    #     if self.payment_verified:
+    #         return True
+    #     return False
    
 
     def __str__(self):

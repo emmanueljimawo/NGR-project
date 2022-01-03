@@ -182,8 +182,8 @@
                             <button style="background-color: #20B07C;height: 50px; width:60%;"
                             class="btn btn-primary mt-4 rounded shadow paystack-btn" data-currency="{{currency}}"
                             data-ref="{{ref_number}}" data-key="{{paystack_public_key}}" data-email="{{object.email}}"
-                            data-amount="{{contest.voting_fee_amount}}" data-label="{{object.slug}}"
-                            data-url="{% url 'contest:verify_voting_fee_payment' object.slug ref_number %}">
+                            data-amount="{{contest.voting_fee_amount}}" 
+                            data-url="/contest/voting/{{ object.slug }}/" data-slug="{{ object.slug }}" data-payment_type="vote">
                             VOTE</button>
     
                         </div>

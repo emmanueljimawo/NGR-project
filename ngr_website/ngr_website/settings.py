@@ -155,10 +155,11 @@ RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 
 # Paystack
-PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY', '')
-PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY', '')
+PAYSTACK_PUBLIC_KEY=os.environ.get('PAYSTACK_PUBLIC_KEY', 'pk_test_f8c83fd3162e224f8dc46b58cb4977f13d8ae247')
+PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY', 'sk_test_8045899737d7cc819276da1fd79841962ad37f2a')
 PAYSTACK_BASE_URL = "https://api.paystack.co"
 CURRENCY="NGN"
+
 
 # Email Settings
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
