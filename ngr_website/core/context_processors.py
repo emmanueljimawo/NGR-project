@@ -1,5 +1,5 @@
 from .forms import EmailSubscriptionForm
-import settings
+from django.conf import settings
 
 
 def processors(request):
