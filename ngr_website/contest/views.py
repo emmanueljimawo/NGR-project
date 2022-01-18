@@ -100,6 +100,8 @@ class Profile(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['vote_count'] = Vote.objects.filter(contestant=self.object.id).aggregate(no = Sum('votes_count'))
+        context['vote_payment_type'] = 'vote'
+        context['register_payment_type'] = 'register'
         return context
 
 

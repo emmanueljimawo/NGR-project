@@ -78,7 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'contest.context_processors.contest_processor',
-                'core.context_processors.email_subscription_processor',
+                'core.context_processors.processors',
             ],
         },
     },
@@ -171,4 +171,10 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 FROM_EMAIL = os.environ.get('FROM_EMAIL')
 
 # EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+
+INSTAGRAM = 'https://www.instagram.com/naijagracerace/'
+TWITTER = '#'
+FACEBOOK = 'https://www.facebook.com/Naija-Grace-Race-105796708484386/'
+PHONE_NUMBER = '07086488811'
 

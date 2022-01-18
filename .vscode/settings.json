@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./ngr_website/ngr_website"
+    ]
+}
