@@ -21,7 +21,9 @@
 <body id="{% block body_id%}{% endblock %}" class="{% block body_class%}{% endblock %}">
 
     {% include 'includes/alert.html' %}
+    {% if contest.has_started %}
     {% include 'includes/banner.html' %}
+    {% endif %}
     {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
     {% block content %}{% endblock %}
     <a onclick="scrollToTop()">
