@@ -12,7 +12,6 @@ $ docker-compose up -d --build
 ```
 Verify [http://localhost:8000/](http://localhost:8000/) works as expected:
 
-
 ### Production
 
 Run locally:
